@@ -3,6 +3,7 @@ package br.com.deeplog.model;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import br.com.deeplog.autenticacao.Senhas;
 
 public class Mergulhador {
     private String nome;
@@ -33,6 +34,10 @@ public class Mergulhador {
 
     public void incrementarMergulhos() {
         this.quantidadeMergulhos++;
+    }
+
+    public boolean verificarSenha(String senha) {
+        return Senhas.verificar(senha, senhaHash);
     }
 
     public String getNome() {
