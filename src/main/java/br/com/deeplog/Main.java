@@ -4,6 +4,8 @@ import br.com.deeplog.enums.NivelDificuldade;
 import br.com.deeplog.gamificacao.*;
 import br.com.deeplog.model.*;
 import br.com.deeplog.requisitos.RequisitoExperiencia;
+import br.com.deeplog.autenticacao.ServicoAutenticacao;
+import br.com.deeplog.autenticacao.ServicoRegistros;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +15,10 @@ public class Main {
         System.out.println("=== DEEPLOG - SISTEMA DE MERGULHO E GAMIFICAÇÃO ===");
 
         // 1. Criar Mergulhador
-        Mergulhador mergulhador = new Mergulhador("Diego Mendes", "diego@deeplog.com", "hash12345");
+        ServicoAutenticacao autenticacao = new ServicoAutenticacao();
+        Mergulhador mergulhador = autenticacao.cadastrar("Diego Mendes", "diego@deeplog.com", "senhaDeExemplo123");
+        String sessao = autenticacao.login("diego@deeplog.com", "senhaDeExemplo123");
+        ServicoRegistros registros = new ServicoRegistros(autenticacao);
         System.out.println("Mergulhador criado: " + mergulhador.getNome());
 
         // 2. Criar Ponto e Perfil de Mergulho
@@ -24,8 +29,8 @@ public class Main {
         System.out.println("Ponto configurado: " + perfil.getPonto().getNome() + " | Profundidade máx: " + perfil.getProfundidadeMaxima() + "m");
 
         // 3. Registrar um Mergulho
-        RegistroMergulho registro = new RegistroMergulho(mergulhador, perfil, LocalDateTime.now(), 45.0, 20.0);
-        mergulhador.incrementarMergulhos();
+        java.util.UUID registroId = registros.registrar(sessao, perfil, LocalDateTime.now(), 45.0, 20.0);
+        RegistroMergulho registro = registros.consultar(sessao, registroId);
         registro.setAvaliacao(new AvaliacaoDificuldade(NivelDificuldade.MODERADO, "Mergulho incrível!"));
 
         System.out.println("Mergulho registrado! Total de mergulhos do mergulhador: " + mergulhador.getQuantidadeMergulhos());
@@ -47,6 +52,8 @@ public class Main {
         }
         System.out.println("Nível Atual: " + progresso.getNivelAtual().getTitulo());
 
+        autenticacao.logout(sessao);
+        System.out.println("Sessão encerrada.");
         System.out.println("\n=== TESTE CONCLUÍDO COM SUCESSO! ===");
     }
 }
