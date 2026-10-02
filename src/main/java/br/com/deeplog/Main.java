@@ -19,7 +19,7 @@ public class Main {
         // 2. Criar Ponto e Perfil de Mergulho
         PontoMergulho ponto = new PontoMergulho("Laje de Santos", "São Paulo, Brasil", "Excelente visibilidade", "Correnteza moderada");
         PerfilMergulho perfil = new PerfilMergulho(ponto, "Recreativo Avançado", 22.5);
-        perfil.adicionarRequisito(new RequisitoExperiencia(10));
+        perfil.adicionarRequisito(new RequisitoExperiencia("Mínimo de 10 mergulhos", "Manual Padrão", 10));
 
         System.out.println("Ponto configurado: " + perfil.getPonto().getNome() + " | Profundidade máx: " + perfil.getProfundidadeMaxima() + "m");
 
