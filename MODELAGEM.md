@@ -14,6 +14,4 @@ os atributos são privados e os construtores validam os dados. a herança aparec
 
 coleções guardam registros do proprietário. cada registro aceita até cinco fotos, com uma escolhida como capa. os requisitos retornam atendido, pendente ou indeterminado.
 
-alguns nomes anteriores foram mantidos no código. a duração usa `double` para aceitar frações de minuto.
-
 os testes de autenticação e modelagem e a execução do main passaram com JDK 21.

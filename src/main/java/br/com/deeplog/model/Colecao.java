@@ -10,7 +10,7 @@ public class Colecao {
         setTitulo(titulo);
     }
     public void adicionar(RegistroMergulho registro) {
-        if (registro == null || registro.getMergulhador() != proprietario) throw new IllegalArgumentException("Registro de outro usuário.");
+        if (registro == null || registro.getAutor() != proprietario) throw new IllegalArgumentException("Registro de outro usuário.");
         registros.add(registro);
     }
     public void remover(RegistroMergulho registro) { registros.remove(registro); }

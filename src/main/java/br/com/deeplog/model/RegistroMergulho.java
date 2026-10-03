@@ -18,32 +18,32 @@ public class RegistroMergulho {
     private String relato;
     private String condicoes;
     private Fotografia capa;
-    private Mergulhador mergulhador;
+    private Mergulhador autor;
     private PerfilMergulho perfil;
     private LocalDateTime dataHora;
-    private double duracaoMinutos;
-    private double profundidadeAtingida;
+    private int duracaoMin;
+    private double profundidadeMaximaM;
     private final List<Fotografia> fotografias;
     private AvaliacaoDificuldade avaliacao;
 
-    public RegistroMergulho(Mergulhador mergulhador, PerfilMergulho perfil, LocalDateTime dataHora, double duracaoMinutos, double profundidadeAtingida) {
-        if (mergulhador == null || perfil == null) {
+    public RegistroMergulho(Mergulhador autor, PerfilMergulho perfil, LocalDateTime dataHora, int duracaoMin, double profundidadeMaximaM) {
+        if (autor == null || perfil == null) {
             throw new IllegalArgumentException("Mergulhador e Perfil de Mergulho são obrigatórios.");
         }
-        if (!Double.isFinite(duracaoMinutos) || duracaoMinutos <= 0
-                || !Double.isFinite(profundidadeAtingida) || profundidadeAtingida < 0) {
+        if (duracaoMin <= 0
+                || !Double.isFinite(profundidadeMaximaM) || profundidadeMaximaM < 0) {
             throw new IllegalArgumentException("A duração deve ser maior que zero.");
         }
-        this.mergulhador = mergulhador;
+        this.autor = autor;
         this.perfil = perfil;
         this.ponto = perfil.getPonto();
         this.dataHora = (dataHora != null) ? dataHora : LocalDateTime.now();
-        this.duracaoMinutos = duracaoMinutos;
-        this.profundidadeAtingida = profundidadeAtingida;
+        this.duracaoMin = duracaoMin;
+        this.profundidadeMaximaM = profundidadeMaximaM;
         this.fotografias = new ArrayList<>();
     }
 
-    public boolean adicionarFotografia(Fotografia foto) {
+    public boolean adicionarFoto(Fotografia foto) {
         if (foto != null && !fotografias.contains(foto) && fotografias.size() < 5) {
             foto.vincular(this);
             fotografias.add(foto);
@@ -53,12 +53,12 @@ public class RegistroMergulho {
     }
 
     public RegistroMergulho(Mergulhador autor, PontoMergulho ponto, PerfilMergulho perfil,
-            String localInformado, LocalDateTime data, double duracao, double profundidade) {
+            String localInformado, LocalDateTime data, int duracao, double profundidade) {
         if (autor == null || (ponto == null && (localInformado == null || localInformado.isBlank()))
                 || (perfil != null && perfil.getPonto() != ponto)) {
             throw new IllegalArgumentException("Autor, local e perfil incompatíveis.");
         }
-        this.mergulhador = autor;
+        this.autor = autor;
         this.ponto = ponto;
         this.perfil = perfil;
         this.localInformado = localInformado;
@@ -66,18 +66,18 @@ public class RegistroMergulho {
         atualizarDados(data, duracao, profundidade, null, null, null, false, null, null, null, null);
     }
 
-    public void atualizarDados(LocalDateTime data, double duracao, double profundidade,
+    public void atualizarDados(LocalDateTime data, int duracao, double profundidade,
             Double temperatura, Double visibilidade, br.com.deeplog.enums.NivelSujeira sujeira,
             boolean peixes, String fauna, String titulo, String relato, String condicoes) {
-        if (data == null || !Double.isFinite(duracao) || duracao <= 0
+        if (data == null || duracao <= 0
                 || !Double.isFinite(profundidade) || profundidade < 0
                 || (temperatura != null && !Double.isFinite(temperatura))
                 || (visibilidade != null && (!Double.isFinite(visibilidade) || visibilidade < 0))) {
             throw new IllegalArgumentException("Dados de mergulho inválidos.");
         }
         this.dataHora = data;
-        this.duracaoMinutos = duracao;
-        this.profundidadeAtingida = profundidade;
+        this.duracaoMin = duracao;
+        this.profundidadeMaximaM = profundidade;
         this.temperaturaC = temperatura;
         this.visibilidadeM = visibilidade;
         this.sujeira = sujeira;
@@ -91,9 +91,7 @@ public class RegistroMergulho {
         if (foto == null || !fotografias.contains(foto)) throw new IllegalArgumentException("A capa deve pertencer ao registro.");
         this.capa = foto;
     }
-    public boolean adicionarFoto(Fotografia foto) { return adicionarFotografia(foto); }
     public java.util.UUID getId() { return id; }
-    public Mergulhador getAutor() { return mergulhador; }
     public PontoMergulho getPonto() { return ponto; }
     public String getLocalInformado() { return localInformado; }
     public Double getTemperaturaC() { return temperaturaC; }
@@ -110,8 +108,8 @@ public class RegistroMergulho {
         this.avaliacao = avaliacao;
     }
 
-    public Mergulhador getMergulhador() {
-        return mergulhador;
+    public Mergulhador getAutor() {
+        return autor;
     }
 
     public PerfilMergulho getPerfil() {
@@ -122,12 +120,12 @@ public class RegistroMergulho {
         return dataHora;
     }
 
-    public double getDuracaoMinutos() {
-        return duracaoMinutos;
+    public int getDuracaoMin() {
+        return duracaoMin;
     }
 
-    public double getProfundidadeAtingida() {
-        return profundidadeAtingida;
+    public double getProfundidadeMaximaM() {
+        return profundidadeMaximaM;
     }
 
     public List<Fotografia> getFotografias() {

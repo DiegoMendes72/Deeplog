@@ -5,23 +5,22 @@ public class PontoMergulho {
     private String nome;
     private String localizacao;
     private String descricao;
-    private String condicoesHabituais;
+    private String caracteristicas;
 
-    public PontoMergulho(String nome, String localizacao, String descricao, String condicoesHabituais) {
+    public PontoMergulho(String nome, String localizacao, String descricao, String caracteristicas) {
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("O nome do ponto é obrigatório.");
         }
         this.nome = nome;
         this.localizacao = localizacao;
         this.descricao = descricao;
-        this.condicoesHabituais = condicoesHabituais;
+        this.caracteristicas = caracteristicas;
     }
 
     public String getNome() {
         return nome;
     }
     public java.util.UUID getId() { return id; }
-    public String getCaracteristicas() { return condicoesHabituais; }
 
     public String getLocalizacao() {
         return localizacao;
@@ -31,7 +30,7 @@ public class PontoMergulho {
         return descricao;
     }
 
-    public String getCondicoesHabituais() {
-        return condicoesHabituais;
+    public String getCaracteristicas() {
+        return caracteristicas;
     }
 }

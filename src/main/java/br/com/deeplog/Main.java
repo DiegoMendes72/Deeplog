@@ -26,10 +26,10 @@ public class Main {
         PerfilMergulho perfil = new PerfilMergulho(ponto, "Recreativo Avançado", 22.5);
         perfil.adicionarRequisito(new RequisitoExperiencia("Mínimo de 10 mergulhos", "Manual Padrão", 10));
 
-        System.out.println("Ponto configurado: " + perfil.getPonto().getNome() + " | Profundidade máx: " + perfil.getProfundidadeMaxima() + "m");
+        System.out.println("Ponto configurado: " + perfil.getPonto().getNome() + " | Profundidade máx: " + perfil.getProfundidadePrevistaM() + "m");
 
         // 3. Registrar um Mergulho
-        java.util.UUID registroId = registros.registrar(sessao, perfil, LocalDateTime.now(), 45.0, 20.0);
+        java.util.UUID registroId = registros.registrar(sessao, perfil, LocalDateTime.now(), 45, 20.0);
         RegistroMergulho registro = registros.consultar(sessao, registroId);
         registro.setAvaliacao(new AvaliacaoDificuldade(NivelDificuldade.MODERADA, "Mergulho incrível!"));
 

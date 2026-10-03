@@ -9,7 +9,7 @@ public class ServicoEstatisticas {
     public RelatorioEstatistico calcular(Mergulhador usuario, LocalDate inicio, LocalDate fim) {
         Objects.requireNonNull(usuario);
         if (inicio != null && fim != null && fim.isBefore(inicio)) throw new IllegalArgumentException("Período inválido.");
-        List<RegistroMergulho> selecionados = registros.stream().filter(r -> r.getMergulhador() == usuario)
+        List<RegistroMergulho> selecionados = registros.stream().filter(r -> r.getAutor() == usuario)
             .filter(r -> inicio == null || !r.getDataHora().toLocalDate().isBefore(inicio))
             .filter(r -> fim == null || !r.getDataHora().toLocalDate().isAfter(fim)).toList();
         Map<YearMonth,Long> frequencia = new HashMap<>();
@@ -18,9 +18,9 @@ public class ServicoEstatisticas {
             frequencia.merge(YearMonth.from(r.getDataHora()),1L,Long::sum);
             if (r.getAvaliacao() != null) dificuldades.merge(r.getAvaliacao().getNivel(),1L,Long::sum);
         }
-        return new RelatorioEstatistico(selecionados.size(), selecionados.stream().mapToDouble(RegistroMergulho::getDuracaoMinutos).sum(),
-            selecionados.stream().mapToDouble(RegistroMergulho::getProfundidadeAtingida).average().orElse(0),
-            selecionados.stream().mapToDouble(RegistroMergulho::getProfundidadeAtingida).max().orElse(0),
+        return new RelatorioEstatistico(selecionados.size(), selecionados.stream().mapToDouble(RegistroMergulho::getDuracaoMin).sum(),
+            selecionados.stream().mapToDouble(RegistroMergulho::getProfundidadeMaximaM).average().orElse(0),
+            selecionados.stream().mapToDouble(RegistroMergulho::getProfundidadeMaximaM).max().orElse(0),
             selecionados.isEmpty() ? 0 : 100.0 * selecionados.stream().filter(RegistroMergulho::isTemPeixes).count() / selecionados.size(),
             selecionados.stream().map(RegistroMergulho::getPonto).filter(Objects::nonNull).distinct().count(), frequencia,dificuldades);
     }

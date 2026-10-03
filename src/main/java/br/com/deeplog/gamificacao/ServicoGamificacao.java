@@ -12,8 +12,8 @@ public class ServicoGamificacao {
         this.registros = Objects.requireNonNull(registros);
         this.colecoes = Objects.requireNonNull(colecoes);
         conquistas = List.of(
-            new Conquista("Primeiro registro", "Registrou um mergulho", u -> registros.stream().anyMatch(r -> r.getMergulhador() == u)),
-            new Conquista("Primeira foto", "Registrou uma fotografia", u -> registros.stream().anyMatch(r -> r.getMergulhador() == u && !r.getFotografias().isEmpty())),
+            new Conquista("Primeiro registro", "Registrou um mergulho", u -> registros.stream().anyMatch(r -> r.getAutor() == u)),
+            new Conquista("Primeira foto", "Registrou uma fotografia", u -> registros.stream().anyMatch(r -> r.getAutor() == u && !r.getFotografias().isEmpty())),
             new Conquista("Primeira coleção", "Organizou uma coleção", u -> colecoes.stream().anyMatch(c -> c.getProprietario() == u && c.getRegistros().stream().anyMatch(registros::contains)))
         );
     }
@@ -21,7 +21,7 @@ public class ServicoGamificacao {
         Objects.requireNonNull(usuario);
         Map<PontoMergulho, java.time.LocalDate> visitas = new LinkedHashMap<>();
         for (RegistroMergulho r : registros) {
-            if (r.getMergulhador() == usuario && r.getPonto() != null) {
+            if (r.getAutor() == usuario && r.getPonto() != null) {
                 visitas.merge(r.getPonto(), r.getDataHora().toLocalDate(), (a,b) -> a.isBefore(b) ? a : b);
             }
         }

@@ -26,7 +26,7 @@ public class AutenticacaoTest {
         ServicoRegistros registros = new ServicoRegistros(auth);
         PerfilMergulho perfil = new PerfilMergulho(new PontoMergulho("Ponto", "Local", "Descrição", "Condições"), "Tipo", 10);
         UUID id = registros.registrar(sessaoAna, perfil, LocalDateTime.now(), 30, 8);
-        assert registros.consultar(sessaoAna, id).getMergulhador() == ana;
+        assert registros.consultar(sessaoAna, id).getAutor() == ana;
         assert registros.listar(sessaoAna).size() == 1;
         assert registros.listar(sessaoBia).isEmpty();
         assert ana.getQuantidadeMergulhos() == 1;

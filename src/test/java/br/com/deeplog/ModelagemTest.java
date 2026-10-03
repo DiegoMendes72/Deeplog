@@ -21,7 +21,7 @@ public class ModelagemTest {
         assert avaliador.avaliar(ana, perfil).estado() == EstadoCompatibilidade.PENDENTE;
         ana.atualizarPerfil("Ana", 10);
         assert avaliador.avaliar(ana, perfil).estado() == EstadoCompatibilidade.ATENDIDO;
-        Certificacao cert = new Certificacao("Open Water", "PADI", "Inicial");
+        Certificacao cert = new Certificacao("Open Water", "PADI", TipoCertificacao.CERTIFICACAO);
         ObjetivoFormacao objetivo = new ObjetivoFormacao(ana, cert);
         objetivo.atualizarEstado(EstadoObjetivo.CONCLUIDO);
         Requisito req = new RequisitoCertificacao("Certificação", "PADI", Set.of(cert));
@@ -32,6 +32,10 @@ public class ModelagemTest {
         desejo.marcarPlanejado();
         assert desejo.getEstado() == EstadoDesejo.PLANEJADO;
         RegistroMergulho registro = new RegistroMergulho(ana, perfil, LocalDateTime.of(2026,10,2,12,0), 30, 15);
+        assert registro.getDuracaoMin() == 30;
+        assert registro.getProfundidadeMaximaM() == 15;
+        assert perfil.getNome().equals("Perfil") && perfil.getProfundidadePrevistaM() == 20;
+        assert cert.getCertificadora().equals("PADI") && cert.getTipo() == TipoCertificacao.CERTIFICACAO;
         registro.atualizarDados(registro.getDataHora(),30,15,25.0,10.0,NivelSujeira.BAIXO,true,"Peixes","Título","Relato","Calmo");
         RegistroMergulho livre = new RegistroMergulho(ana,null,null,"Local pessoal",LocalDateTime.now(),20,8);
         assert livre.getPonto() == null;
@@ -77,7 +81,7 @@ public class ModelagemTest {
         Sessao ativa = new Sessao(ana,Instant.now().plusSeconds(60));
         ativa.encerrar();
         assert !ativa.ativa(Instant.now());
-        falha(() -> registro.atualizarDados(LocalDateTime.now(),Double.NaN,15,null,null,null,false,null,null,null,null));
+        falha(() -> registro.atualizarDados(LocalDateTime.now(),0,15,null,null,null,false,null,null,null,null));
         System.out.println("Testes da modelagem concluídos com sucesso.");
     }
     private static void falha(Runnable operacao) {
