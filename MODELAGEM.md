@@ -1,4 +1,4 @@
-# modelagem — etapa 3
+# modelagem: etapa 3
 
 as classes do diagrama foram implementadas em Java e separadas por função:
 
