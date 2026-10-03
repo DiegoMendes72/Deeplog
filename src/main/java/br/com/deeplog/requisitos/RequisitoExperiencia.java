@@ -14,11 +14,18 @@ public class RequisitoExperiencia extends Requisito {
     }
 
     @Override
-    public boolean verificar(Mergulhador mergulhador) {
+    public Verificacao verificar(Mergulhador mergulhador) {
         if (mergulhador == null) {
-            return false;
+            return new Verificacao(EstadoVerificacao.INDETERMINADO, "Mergulhador não informado.");
         }
-        return mergulhador.getQuantidadeMergulhos() >= quantidadeMinimaMergulhos;
+        if (mergulhador.getQuantidadeMergulhos() >= quantidadeMinimaMergulhos) {
+            return new Verificacao(EstadoVerificacao.ATENDIDO, getDescricao());
+        }
+        if (mergulhador.getExperienciaAnterior() == null) {
+            return new Verificacao(EstadoVerificacao.INDETERMINADO, "Experiência anterior não informada.");
+        }
+        long total = (long) mergulhador.getQuantidadeMergulhos() + mergulhador.getExperienciaAnterior();
+        return new Verificacao(total >= quantidadeMinimaMergulhos ? EstadoVerificacao.ATENDIDO : EstadoVerificacao.PENDENTE, getDescricao());
     }
 
     public int getQuantidadeMinimaMergulhos() {

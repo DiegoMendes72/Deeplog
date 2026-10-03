@@ -9,7 +9,18 @@ import java.util.UUID;
 /** Cadastro e sessões em memória; cada login possui sua própria sessão. */
 public class ServicoAutenticacao {
     private final Map<String, Mergulhador> usuarios = new HashMap<>();
-    private final Map<String, Mergulhador> sessoes = new HashMap<>();
+    private final Map<String, Sessao> sessoes = new HashMap<>();
+    private final java.time.Clock relogio;
+    private final java.time.Duration duracaoSessao;
+
+    public ServicoAutenticacao() { this(java.time.Clock.systemUTC(), java.time.Duration.ofHours(8)); }
+    public ServicoAutenticacao(java.time.Clock relogio, java.time.Duration duracaoSessao) {
+        this.relogio = java.util.Objects.requireNonNull(relogio);
+        if (duracaoSessao == null || duracaoSessao.isNegative() || duracaoSessao.isZero()) {
+            throw new IllegalArgumentException("Duração da sessão inválida.");
+        }
+        this.duracaoSessao = duracaoSessao;
+    }
 
     public synchronized Mergulhador cadastrar(String nome, String email, String senha) {
         String chave = normalizarEmail(email);
@@ -20,6 +31,10 @@ public class ServicoAutenticacao {
     }
 
     public synchronized String login(String email, String senha) {
+        return entrar(email, senha).getId().toString();
+    }
+
+    public synchronized Sessao entrar(String email, String senha) {
         Mergulhador usuario;
         try {
             usuario = usuarios.get(normalizarEmail(email));
@@ -29,19 +44,28 @@ public class ServicoAutenticacao {
         if (usuario == null || !usuario.verificarSenha(senha)) {
             throw new SecurityException("E-mail ou senha inválidos.");
         }
-        String sessao = UUID.randomUUID().toString();
-        sessoes.put(sessao, usuario);
+        Sessao sessao = new Sessao(usuario, relogio.instant().plus(duracaoSessao));
+        sessoes.put(sessao.getId().toString(), sessao);
         return sessao;
     }
 
     public synchronized Mergulhador usuarioDaSessao(String sessao) {
-        Mergulhador usuario = sessoes.get(sessao);
-        if (usuario == null) throw new SecurityException("Sessão inválida. Faça login.");
-        return usuario;
+        Sessao atual = sessoes.get(sessao);
+        if (atual == null || !atual.ativa(relogio.instant())) {
+            sessoes.remove(sessao);
+            throw new SecurityException("Sessão inválida ou expirada. Faça login.");
+        }
+        return atual.getUsuario();
     }
 
     public synchronized void logout(String sessao) {
-        sessoes.remove(sessao);
+        Sessao atual = sessoes.remove(sessao);
+        if (atual != null) atual.encerrar();
+    }
+
+    public void sair(Sessao sessao) { if (sessao != null) logout(sessao.getId().toString()); }
+    public synchronized void atualizarPerfil(String sessao, String nome, Integer experienciaAnterior) {
+        usuarioDaSessao(sessao).atualizarPerfil(nome, experienciaAnterior);
     }
 
     private static String normalizarEmail(String email) {

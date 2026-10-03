@@ -4,9 +4,9 @@ import br.com.deeplog.model.Mergulhador;
 import java.time.LocalDate;
 
 public abstract class Requisito {
-    protected String descricao;
-    protected String fonte;
-    protected LocalDate revisadoEm;
+    private String descricao;
+    private String fonte;
+    private LocalDate revisadoEm;
 
     public Requisito(String descricao, String fonte) {
         if (descricao == null || descricao.trim().isEmpty()) {
@@ -17,7 +17,7 @@ public abstract class Requisito {
         this.revisadoEm = LocalDate.now();
     }
 
-    public abstract boolean verificar(Mergulhador mergulhador);
+    public abstract Verificacao verificar(Mergulhador mergulhador);
 
     public String getDescricao() {
         return descricao;

@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class PerfilMergulho {
+    private final java.util.UUID id = java.util.UUID.randomUUID();
+    private br.com.deeplog.enums.FormaEntrada formaEntrada = br.com.deeplog.enums.FormaEntrada.OUTRA;
     private PontoMergulho ponto;
     private String tipoMergulho;
     private double profundidadeMaxima;
@@ -33,6 +35,11 @@ public class PerfilMergulho {
     public PontoMergulho getPonto() {
         return ponto;
     }
+    public java.util.UUID getId() { return id; }
+    public String getNome() { return tipoMergulho; }
+    public double getProfundidadePrevistaM() { return profundidadeMaxima; }
+    public br.com.deeplog.enums.FormaEntrada getFormaEntrada() { return formaEntrada; }
+    public void setFormaEntrada(br.com.deeplog.enums.FormaEntrada entrada) { formaEntrada = java.util.Objects.requireNonNull(entrada); }
 
     public String getTipoMergulho() {
         return tipoMergulho;
