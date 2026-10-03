@@ -1,38 +1,19 @@
-# Implementação parcial — Etapa 3
+# modelagem — etapa 3
 
-As classes do diagrama foram distribuídas entre os pacotes `model`, `requisitos`,
-`gamificacao`, `autenticacao` e `servicos`. Os tipos auxiliares estão em `enums`.
+as classes do diagrama foram implementadas em Java e separadas por função:
 
-| Parte do diagrama | Implementação |
-| --- | --- |
-| Perfil e formação | Mergulhador, Certificacao, CertificacaoObtida, ObjetivoFormacao |
-| Planejamento | ItemListaDesejos, EstadoDesejo, EstadoObjetivo |
-| Catálogo | PontoMergulho, PerfilMergulho, FormaEntrada |
-| Requisitos | Requisito abstrato, RequisitoCertificacao, RequisitoExperiencia, Verificacao |
-| Compatibilidade | AvaliadorCompatibilidade, ResultadoCompatibilidade |
-| Diário | RegistroMergulho, Fotografia, AvaliacaoDificuldade |
-| Coleções | Colecao com proprietário e conjunto de registros |
-| Gamificação | Carimbo, Conquista, ConquistaObtida, RegraConquista, ServicoGamificacao |
-| Estatísticas | ServicoEstatisticas, RelatorioEstatistico |
-| Autenticação | ServicoAutenticacao, Sessao com expiração e encerramento |
+- perfil e formação: mergulhador, certificações e objetivos;
+- planejamento: lista de desejos;
+- catálogo: pontos e perfis de mergulho;
+- requisitos: certificação, experiência e resultado de compatibilidade;
+- diário: registros, fotografias, dificuldade e coleções;
+- gamificação: carimbos, conquistas e regras;
+- serviços: autenticação, sessão e estatísticas.
 
-Os atributos são privados; operações validam estados e coleções retornadas não
-permitem alterar sua estrutura externamente. Herança e polimorfismo aparecem nos
-requisitos. Regras de conquista usam uma interface com implementações diferentes.
+os atributos são privados e os construtores validam os dados. a herança aparece nos tipos de requisito. o polimorfismo permite verificar cada requisito pelo mesmo método. as regras de conquista usam uma interface.
 
-Foram preservados alguns nomes anteriores por compatibilidade: `getMergulhador`
-também possui `getAutor`, `getDataObtencao` possui `getDataConclusao`, e os nomes
-anteriores de profundidade e organização emissora possuem acessores correspondentes
-ao diagrama. Duração permanece `double` para preservar frações de minuto. As classes
-de pontos, níveis e desafios anteriores permanecem como extensões da implementação.
+coleções guardam registros do proprietário. cada registro aceita até cinco fotos, com uma escolhida como capa. os requisitos retornam atendido, pendente ou indeterminado.
 
-Esta entrega é parcial e utiliza memória. Persistência e interface web não foram
-implementadas. As coleções e regras funcionam no domínio; sua integração completa
-com serviços de sessão e armazenamento continua sendo uma etapa posterior.
-Os serviços de gamificação e estatísticas recebem o histórico em memória; após
-alterá-lo, deve-se chamar `recalcular` para atualizar carimbos e conquistas.
+alguns nomes anteriores foram mantidos no código. a duração usa `double` para aceitar frações de minuto.
 
-Testes (JDK 21): `AutenticacaoTest` e `ModelagemTest`, ambos executados com `-ea`.
-Os testes cobrem isolamento, senha inválida, logout, três resultados de requisitos,
-objetivo que não substitui certificação obtida, propriedade de coleções, limite e
-capa das fotos, estatísticas vazias, recálculo de conquistas e validade da sessão.
+os testes de autenticação e modelagem e a execução do main passaram com JDK 21.
