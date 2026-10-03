@@ -1,34 +1,58 @@
-# Deeplog
-Sistema de Registro e Diagnóstico de Mergulho
+# DeepLog
 
-## Autenticação
+passaporte digital de aventuras subaquáticas. o projeto organiza registros de mergulho, fotografias, certificações e destinos de interesse.
 
-`ServicoAutenticacao` oferece cadastro com e-mail único, login e logout.
-As senhas são protegidas com PBKDF2-HMAC-SHA256 (600.000 iterações e salt aleatório).
-`Mergulhador.verificarSenha` compara a senha informada sem expor o hash.
-Cada login gera uma sessão independente; logout invalida essa sessão.
-`ServicoRegistros` exige sessão válida para cadastrar, listar e consultar registros,
-e impede consultar registros de outro usuário. A interface futura deve usar esses
-serviços, mantendo os objetos de domínio dentro do servidor.
+## etapa 3 — implementação parcial
 
-O `Main` demonstra cadastro, login, registro de mergulho e logout. A senha nele é
-apenas um exemplo de teste, não uma credencial de produção.
+implementação em Java das classes do diagrama da etapa 2, com encapsulamento, construtores, herança e polimorfismo.
 
-Esta etapa é a lógica Java em memória: não inclui telas web, persistência de contas
-ou autorização nos serviços para coleções e objetivos. Sessões expiram após oito
-horas e o serviço permite atualizar o nome e a experiência anterior do perfil.
-Reiniciar o programa apaga os cadastros e sessões. Esses pontos continuam pendentes
-para atender a proposta completa do aplicativo.
+- cadastro, login e logout, com verificação de senha e sessão com expiração;
+- pontos e perfis de mergulho, certificações e verificação de requisitos;
+- registros de mergulho, avaliação de dificuldade, fotografias e coleções;
+- objetivos de formação e lista de desejos;
+- carimbos, conquistas e estatísticas do histórico.
 
-Veja [MODELAGEM.md](MODELAGEM.md) para o mapeamento das classes da Etapa 2 e os
-limites da implementação parcial da Etapa 3.
+os dados ficam em memória. esta entrega não inclui interface web nem banco de dados.
 
-## Executar (JDK 21, PowerShell)
+## organização
+
+- `model`: classes do domínio;
+- `requisitos`: verificações e resultado de compatibilidade;
+- `autenticacao`: cadastro, senha e sessão;
+- `gamificacao`: carimbos e regras de conquista;
+- `servicos`: estatísticas;
+- `enums`: tipos e estados;
+- `src/test/java`: testes de autenticação e modelagem.
+
+a relação entre o diagrama e o código está em [MODELAGEM.md](MODELAGEM.md).
+
+## como executar
+
+requer JDK 21. na pasta do projeto, compile e execute:
+
+**Windows — PowerShell**
 
 ```powershell
 $fontes = @(Get-ChildItem src/main/java,src/test/java -Recurse -Filter *.java | ForEach-Object { $_.FullName })
 javac -encoding UTF-8 -d build $fontes
+java -cp build br.com.deeplog.Main
+```
+
+**Linux ou GitHub Codespaces**
+
+```bash
+find src/main/java src/test/java -name '*.java' > fontes.txt
+javac -encoding UTF-8 -d build @fontes.txt
+java -cp build br.com.deeplog.Main
+```
+
+o main demonstra cadastro, login, registro, coleção, compatibilidade, conquistas, estatísticas e logout.
+
+## testes
+
+após compilar, execute:
+
+```text
 java -ea -cp build br.com.deeplog.AutenticacaoTest
 java -ea -cp build br.com.deeplog.ModelagemTest
-java -cp build br.com.deeplog.Main
 ```
