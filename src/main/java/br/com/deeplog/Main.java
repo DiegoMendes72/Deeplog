@@ -52,7 +52,7 @@ public class Main {
         }
         System.out.println("Nível Atual: " + progresso.getNivelAtual().getTitulo());
 
-        // 5. Compatibilidade e coleções previstas na modelagem
+        // compatibilidade e coleções
         mergulhador.atualizarPerfil(mergulhador.getNome(), 0);
         br.com.deeplog.requisitos.ResultadoCompatibilidade compatibilidade =
                 new br.com.deeplog.requisitos.AvaliadorCompatibilidade().avaliar(mergulhador, perfil);

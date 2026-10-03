@@ -6,7 +6,6 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-/** Protege senhas com PBKDF2 e um salt aleatório por cadastro. */
 public final class Senhas {
     private static final int ITERACOES = 600000;
     private Senhas() { }

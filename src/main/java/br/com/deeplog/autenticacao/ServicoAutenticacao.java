@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-/** Cadastro e sessões em memória; cada login possui sua própria sessão. */
 public class ServicoAutenticacao {
     private final Map<String, Mergulhador> usuarios = new HashMap<>();
     private final Map<String, Sessao> sessoes = new HashMap<>();

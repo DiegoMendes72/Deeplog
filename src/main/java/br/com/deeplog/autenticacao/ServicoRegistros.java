@@ -4,7 +4,6 @@ import br.com.deeplog.model.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-/** Toda operação consulta a sessão e restringe o acesso ao proprietário. */
 public class ServicoRegistros {
     private final ServicoAutenticacao autenticacao;
     private final Map<UUID, RegistroMergulho> registros = new LinkedHashMap<>();
