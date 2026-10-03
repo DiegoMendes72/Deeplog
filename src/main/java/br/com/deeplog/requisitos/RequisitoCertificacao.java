@@ -19,17 +19,17 @@ public class RequisitoCertificacao extends Requisito {
     }
 
     @Override
-    public boolean verificar(Mergulhador mergulhador) {
+    public Verificacao verificar(Mergulhador mergulhador) {
         if (mergulhador == null || mergulhador.getCertificacoes() == null) {
-            return false;
+            return new Verificacao(EstadoVerificacao.INDETERMINADO, "Mergulhador não informado.");
         }
 
         for (CertificacaoObtida obtida : mergulhador.getCertificacoes()) {
             if (obtida != null && certificacoesAceitas.contains(obtida.getCertificacao())) {
-                return true;
+                return new Verificacao(EstadoVerificacao.ATENDIDO, getDescricao());
             }
         }
-        return false;
+        return new Verificacao(EstadoVerificacao.PENDENTE, getDescricao());
     }
 
     public Set<Certificacao> getCertificacoesAceitas() {

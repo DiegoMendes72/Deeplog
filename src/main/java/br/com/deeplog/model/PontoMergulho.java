@@ -1,6 +1,7 @@
 package br.com.deeplog.model;
 
 public class PontoMergulho {
+    private final java.util.UUID id = java.util.UUID.randomUUID();
     private String nome;
     private String localizacao;
     private String descricao;
@@ -19,6 +20,8 @@ public class PontoMergulho {
     public String getNome() {
         return nome;
     }
+    public java.util.UUID getId() { return id; }
+    public String getCaracteristicas() { return condicoesHabituais; }
 
     public String getLocalizacao() {
         return localizacao;

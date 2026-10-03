@@ -1,10 +1,11 @@
 package br.com.deeplog.enums;
 
 public enum NivelDificuldade {
+    MUITO_FACIL("Muito fácil"),
     FACIL("Fácil"),
-    MODERADO("Moderado"),
-    DIFACIL("Difícil"),
-    EXTREMO("Extremo");
+    MODERADA("Moderada"),
+    DIFICIL("Difícil"),
+    MUITO_DIFICIL("Muito difícil");
 
     private final String descricao;
 

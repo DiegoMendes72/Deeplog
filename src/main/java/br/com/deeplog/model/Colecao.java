@@ -1,38 +1,25 @@
 package br.com.deeplog.model;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.*;
 public class Colecao {
+    private final UUID id = UUID.randomUUID();
+    private final Mergulhador proprietario;
     private String titulo;
-    private String descricao;
-    private final List<Fotografia> fotografias;
-
-    public Colecao(String titulo, String descricao) {
-        if (titulo == null || titulo.trim().isEmpty()) {
-            throw new IllegalArgumentException("O título da coleção é obrigatório.");
-        }
+    private final Set<RegistroMergulho> registros = new LinkedHashSet<>();
+    public Colecao(Mergulhador proprietario, String titulo) {
+        this.proprietario = Objects.requireNonNull(proprietario);
+        setTitulo(titulo);
+    }
+    public void adicionar(RegistroMergulho registro) {
+        if (registro == null || registro.getMergulhador() != proprietario) throw new IllegalArgumentException("Registro de outro usuário.");
+        registros.add(registro);
+    }
+    public void remover(RegistroMergulho registro) { registros.remove(registro); }
+    public UUID getId() { return id; }
+    public Mergulhador getProprietario() { return proprietario; }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) {
+        if (titulo == null || titulo.isBlank()) throw new IllegalArgumentException("Título obrigatório.");
         this.titulo = titulo;
-        this.descricao = descricao;
-        this.fotografias = new ArrayList<>();
     }
-
-    public void adicionarFotografia(Fotografia foto) {
-        if (foto != null) {
-            this.fotografias.add(foto);
-        }
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public List<Fotografia> getFotografias() {
-        return Collections.unmodifiableList(fotografias);
-    }
+    public Set<RegistroMergulho> getRegistros() { return Collections.unmodifiableSet(registros); }
 }

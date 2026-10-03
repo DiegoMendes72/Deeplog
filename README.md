@@ -14,10 +14,14 @@ serviços, mantendo os objetos de domínio dentro do servidor.
 O `Main` demonstra cadastro, login, registro de mergulho e logout. A senha nele é
 apenas um exemplo de teste, não uma credencial de produção.
 
-Esta etapa é a lógica Java em memória: não inclui telas web, persistência de contas,
-expiração de sessões, edição de perfil ou autorização para coleções e objetivos.
+Esta etapa é a lógica Java em memória: não inclui telas web, persistência de contas
+ou autorização nos serviços para coleções e objetivos. Sessões expiram após oito
+horas e o serviço permite atualizar o nome e a experiência anterior do perfil.
 Reiniciar o programa apaga os cadastros e sessões. Esses pontos continuam pendentes
 para atender a proposta completa do aplicativo.
+
+Veja [MODELAGEM.md](MODELAGEM.md) para o mapeamento das classes da Etapa 2 e os
+limites da implementação parcial da Etapa 3.
 
 ## Executar (JDK 21, PowerShell)
 
@@ -25,5 +29,6 @@ para atender a proposta completa do aplicativo.
 $fontes = @(Get-ChildItem src/main/java,src/test/java -Recurse -Filter *.java | ForEach-Object { $_.FullName })
 javac -encoding UTF-8 -d build $fontes
 java -ea -cp build br.com.deeplog.AutenticacaoTest
+java -ea -cp build br.com.deeplog.ModelagemTest
 java -cp build br.com.deeplog.Main
 ```

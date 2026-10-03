@@ -31,7 +31,7 @@ public class Main {
         // 3. Registrar um Mergulho
         java.util.UUID registroId = registros.registrar(sessao, perfil, LocalDateTime.now(), 45.0, 20.0);
         RegistroMergulho registro = registros.consultar(sessao, registroId);
-        registro.setAvaliacao(new AvaliacaoDificuldade(NivelDificuldade.MODERADO, "Mergulho incrível!"));
+        registro.setAvaliacao(new AvaliacaoDificuldade(NivelDificuldade.MODERADA, "Mergulho incrível!"));
 
         System.out.println("Mergulho registrado! Total de mergulhos do mergulhador: " + mergulhador.getQuantidadeMergulhos());
 
@@ -51,6 +51,25 @@ public class Main {
             progresso.setNivelAtual(nivel2);
         }
         System.out.println("Nível Atual: " + progresso.getNivelAtual().getTitulo());
+
+        // 5. Compatibilidade e coleções previstas na modelagem
+        mergulhador.atualizarPerfil(mergulhador.getNome(), 0);
+        br.com.deeplog.requisitos.ResultadoCompatibilidade compatibilidade =
+                new br.com.deeplog.requisitos.AvaliadorCompatibilidade().avaliar(mergulhador, perfil);
+        System.out.println("Requisitos do perfil: " + compatibilidade.estado());
+        Colecao colecao = new Colecao(mergulhador, "Primeiras aventuras");
+        colecao.adicionar(registro);
+        Fotografia foto = new Fotografia("exemplo.jpg", "Memória do mergulho");
+        registro.adicionarFoto(foto);
+        registro.definirCapa(foto);
+        java.util.List<RegistroMergulho> historico = new java.util.ArrayList<>(registros.listar(sessao));
+        ServicoGamificacao gamificacao = new ServicoGamificacao(historico, java.util.List.of(colecao));
+        gamificacao.recalcular(mergulhador);
+        System.out.println("Carimbos: " + gamificacao.getCarimbos(mergulhador).size());
+        System.out.println("Conquistas por regras: " + gamificacao.getConquistas(mergulhador).size());
+        br.com.deeplog.servicos.RelatorioEstatistico estatisticas =
+                new br.com.deeplog.servicos.ServicoEstatisticas(historico).calcular(mergulhador, null, null);
+        System.out.println("Tempo acumulado: " + estatisticas.tempoAcumulado() + " minutos");
 
         autenticacao.logout(sessao);
         System.out.println("Sessão encerrada.");
