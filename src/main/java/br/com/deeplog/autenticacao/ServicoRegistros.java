@@ -1,6 +1,8 @@
 package br.com.deeplog.autenticacao;
 
 import br.com.deeplog.model.*;
+import br.com.deeplog.excecoes.AcessoNegadoException;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -26,7 +28,7 @@ public class ServicoRegistros {
         Mergulhador dono = autenticacao.usuarioDaSessao(sessao);
         RegistroMergulho registro = registros.get(id);
         if (registro == null || registro.getAutor() != dono) {
-            throw new SecurityException("Registro indisponível para este usuário.");
+            throw new AcessoNegadoException("Registro indisponível para este usuário.");
         }
         return registro;
     }
