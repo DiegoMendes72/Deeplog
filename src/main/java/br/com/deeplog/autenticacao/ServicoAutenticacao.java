@@ -1,10 +1,12 @@
 package br.com.deeplog.autenticacao;
 
 import br.com.deeplog.model.Mergulhador;
+import br.com.deeplog.excecoes.AutenticacaoException;
+import br.com.deeplog.excecoes.ValidacaoException;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
 public class ServicoAutenticacao {
     private final Map<String, Mergulhador> usuarios = new HashMap<>();
@@ -16,14 +18,14 @@ public class ServicoAutenticacao {
     public ServicoAutenticacao(java.time.Clock relogio, java.time.Duration duracaoSessao) {
         this.relogio = java.util.Objects.requireNonNull(relogio);
         if (duracaoSessao == null || duracaoSessao.isNegative() || duracaoSessao.isZero()) {
-            throw new IllegalArgumentException("Duração da sessão inválida.");
+            throw new ValidacaoException("Duração da sessão inválida.");
         }
         this.duracaoSessao = duracaoSessao;
     }
 
     public synchronized Mergulhador cadastrar(String nome, String email, String senha) {
         String chave = normalizarEmail(email);
-        if (usuarios.containsKey(chave)) throw new IllegalArgumentException("E-mail já cadastrado.");
+        if (usuarios.containsKey(chave)) throw new ValidacaoException("E-mail já cadastrado.");
         Mergulhador usuario = new Mergulhador(nome, chave, Senhas.proteger(senha));
         usuarios.put(chave, usuario);
         return usuario;
@@ -37,11 +39,11 @@ public class ServicoAutenticacao {
         Mergulhador usuario;
         try {
             usuario = usuarios.get(normalizarEmail(email));
-        } catch (IllegalArgumentException e) {
-            throw new SecurityException("E-mail ou senha inválidos.");
+        } catch (ValidacaoException e) {
+            throw new AutenticacaoException("E-mail ou senha inválidos.");
         }
         if (usuario == null || !usuario.verificarSenha(senha)) {
-            throw new SecurityException("E-mail ou senha inválidos.");
+            throw new AutenticacaoException("E-mail ou senha inválidos.");
         }
         Sessao sessao = new Sessao(usuario, relogio.instant().plus(duracaoSessao));
         sessoes.put(sessao.getId().toString(), sessao);
@@ -52,7 +54,7 @@ public class ServicoAutenticacao {
         Sessao atual = sessoes.get(sessao);
         if (atual == null || !atual.ativa(relogio.instant())) {
             sessoes.remove(sessao);
-            throw new SecurityException("Sessão inválida ou expirada. Faça login.");
+            throw new AutenticacaoException("Sessão inválida ou expirada. Faça login.");
         }
         return atual.getUsuario();
     }
@@ -63,15 +65,16 @@ public class ServicoAutenticacao {
     }
 
     public void sair(Sessao sessao) { if (sessao != null) logout(sessao.getId().toString()); }
+    
     public synchronized void atualizarPerfil(String sessao, String nome, Integer experienciaAnterior) {
         usuarioDaSessao(sessao).atualizarPerfil(nome, experienciaAnterior);
     }
 
     private static String normalizarEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("E-mail inválido.");
+        if (email == null) throw new ValidacaoException("E-mail inválido.");
         String valor = email.trim().toLowerCase(Locale.ROOT);
         if (!valor.matches("[^\\s@]+@[^\\s@]+\\.[^\\s@]+")) {
-            throw new IllegalArgumentException("E-mail inválido.");
+            throw new ValidacaoException("E-mail inválido.");
         }
         return valor;
     }
