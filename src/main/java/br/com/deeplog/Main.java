@@ -6,8 +6,8 @@ import br.com.deeplog.model.*;
 import br.com.deeplog.requisitos.RequisitoExperiencia;
 import br.com.deeplog.autenticacao.ServicoAutenticacao;
 import br.com.deeplog.autenticacao.ServicoRegistros;
+import br.com.deeplog.persistencia.RepositorioArquivo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Main {
@@ -52,7 +52,7 @@ public class Main {
         }
         System.out.println("Nível Atual: " + progresso.getNivelAtual().getTitulo());
 
-        // compatibilidade e coleções
+        // Compatibilidade e coleções
         mergulhador.atualizarPerfil(mergulhador.getNome(), 0);
         br.com.deeplog.requisitos.ResultadoCompatibilidade compatibilidade =
                 new br.com.deeplog.requisitos.AvaliadorCompatibilidade().avaliar(mergulhador, perfil);
@@ -71,8 +71,24 @@ public class Main {
                 new br.com.deeplog.servicos.ServicoEstatisticas(historico).calcular(mergulhador, null, null);
         System.out.println("Tempo acumulado: " + estatisticas.tempoAcumulado() + " minutos");
 
+        // 5. NOVO: Persistência em Arquivo (Leitura e Escrita)
+        System.out.println("\n--- TESTE DE PERSISTÊNCIA EM ARQUIVO ---");
+        RepositorioArquivo repositorio = new RepositorioArquivo("registros_mergulho.txt");
+        
+        // Salvando os dados
+        repositorio.salvarRegistros(historico);
+        System.out.println("Dados salvos com sucesso no arquivo 'registros_mergulho.txt'.");
+        
+        // Lendo os dados
+        System.out.println("Lendo os dados do arquivo:");
+        java.util.List<String> linhasLidas = repositorio.lerLinhas();
+        for (String linha : linhasLidas) {
+            System.out.println(linha);
+        }
+
+        // 6. Logout
         autenticacao.logout(sessao);
-        System.out.println("Sessão encerrada.");
+        System.out.println("\nSessão encerrada.");
         System.out.println("\n=== TESTE CONCLUÍDO COM SUCESSO! ===");
     }
 }
