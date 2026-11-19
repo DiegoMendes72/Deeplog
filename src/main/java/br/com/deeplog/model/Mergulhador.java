@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import br.com.deeplog.autenticacao.Senhas;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class Mergulhador {
     private final java.util.UUID id = java.util.UUID.randomUUID();
@@ -16,10 +17,10 @@ public class Mergulhador {
 
     public Mergulhador(String nome, String email, String senhaHash) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome é obrigatório.");
+            throw new import ValidacaoException("O nome é obrigatório.");
         }
         if (email == null || !email.contains("@")) {
-            throw new IllegalArgumentException("E-mail inválido.");
+            throw new import ValidacaoException("E-mail inválido.");
         }
         this.nome = nome;
         this.email = email;
@@ -47,7 +48,7 @@ public class Mergulhador {
     public Integer getExperienciaAnterior() { return experienciaAnterior; }
     public void atualizarPerfil(String nome, Integer experienciaAnterior) {
         if (nome == null || nome.isBlank() || (experienciaAnterior != null && experienciaAnterior < 0)) {
-            throw new IllegalArgumentException("Nome e experiência inválidos.");
+            throw new import ValidacaoException("Nome e experiência inválidos.");
         }
         this.nome = nome.trim();
         this.experienciaAnterior = experienciaAnterior;
