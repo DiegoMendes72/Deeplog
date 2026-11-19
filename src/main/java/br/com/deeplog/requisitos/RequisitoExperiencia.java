@@ -1,6 +1,7 @@
 package br.com.deeplog.requisitos;
 
 import br.com.deeplog.model.Mergulhador;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class RequisitoExperiencia extends Requisito {
     private int minimoMergulhos;
@@ -8,7 +9,7 @@ public class RequisitoExperiencia extends Requisito {
     public RequisitoExperiencia(String descricao, String fonte, int minimoMergulhos) {
         super(descricao, fonte);
         if (minimoMergulhos < 0) {
-            throw new IllegalArgumentException("A quantidade mínima de mergulhos não pode ser negativa.");
+            throw new import ValidacaoException("A quantidade mínima de mergulhos não pode ser negativa.");
         }
         this.minimoMergulhos = minimoMergulhos;
     }
