@@ -2,6 +2,7 @@ package br.com.deeplog.requisitos;
 
 import br.com.deeplog.model.Mergulhador;
 import java.time.LocalDate;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public abstract class Requisito {
     private String descricao;
@@ -10,7 +11,7 @@ public abstract class Requisito {
 
     public Requisito(String descricao, String fonte) {
         if (descricao == null || descricao.trim().isEmpty()) {
-            throw new IllegalArgumentException("A descrição do requisito é obrigatória.");
+            throw new import ValidacaoException("A descrição do requisito é obrigatória.");
         }
         this.descricao = descricao;
         this.fonte = (fonte != null) ? fonte : "Manual Padrão";
