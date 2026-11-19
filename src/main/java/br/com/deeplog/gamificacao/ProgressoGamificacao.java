@@ -4,6 +4,7 @@ import br.com.deeplog.model.Mergulhador;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class ProgressoGamificacao {
     private Mergulhador mergulhador;
@@ -14,7 +15,7 @@ public class ProgressoGamificacao {
 
     public ProgressoGamificacao(Mergulhador mergulhador, Nivel nivelInicial) {
         if (mergulhador == null) {
-            throw new IllegalArgumentException("O mergulhador é obrigatório.");
+            throw new import ValidacaoException("O mergulhador é obrigatório.");
         }
         this.mergulhador = mergulhador;
         this.nivelAtual = nivelInicial;
