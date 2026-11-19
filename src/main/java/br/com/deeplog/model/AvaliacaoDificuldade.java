@@ -2,6 +2,7 @@ package br.com.deeplog.model;
 
 import br.com.deeplog.enums.NivelDificuldade;
 import java.time.LocalDateTime;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class AvaliacaoDificuldade {
     private java.util.Set<br.com.deeplog.enums.FatorDificuldade> fatores = java.util.Set.of();
@@ -11,7 +12,7 @@ public class AvaliacaoDificuldade {
 
     public AvaliacaoDificuldade(NivelDificuldade nivel, String comentario) {
         if (nivel == null) {
-            throw new IllegalArgumentException("O nível de dificuldade é obrigatório.");
+            throw new import ValidacaoException("O nível de dificuldade é obrigatório.");
         }
         this.nivel = nivel;
         this.comentario = comentario;
@@ -22,7 +23,7 @@ public class AvaliacaoDificuldade {
         return nivel;
     }
     public void atualizar(NivelDificuldade nivel, java.util.Set<br.com.deeplog.enums.FatorDificuldade> fatores, String comentario) {
-        if (nivel == null || fatores == null) throw new IllegalArgumentException("Nível e fatores obrigatórios.");
+        if (nivel == null || fatores == null) throw new import ValidacaoException("Nível e fatores obrigatórios.");
         java.util.Set<br.com.deeplog.enums.FatorDificuldade> copia = java.util.Set.copyOf(fatores);
         this.nivel = nivel;
         this.fatores = copia;
