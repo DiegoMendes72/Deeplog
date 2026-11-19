@@ -1,5 +1,7 @@
 package br.com.deeplog.gamificacao;
 
+import br.com.deeplog.excecoes.ValidacaoException;
+
 public class Nivel {
     private int numero;
     private String titulo;
@@ -7,13 +9,13 @@ public class Nivel {
 
     public Nivel(int numero, String titulo, int pontosNecessarios) {
         if (numero <= 0) {
-            throw new IllegalArgumentException("O número do nível deve ser maior que zero.");
+            throw new import ValidacaoException("O número do nível deve ser maior que zero.");
         }
         if (titulo == null || titulo.trim().isEmpty()) {
-            throw new IllegalArgumentException("O título do nível é obrigatório.");
+            throw new import ValidacaoException("O título do nível é obrigatório.");
         }
         if (pontosNecessarios < 0) {
-            throw new IllegalArgumentException("Os pontos necessários não podem ser negativos.");
+            throw new import ValidacaoException("Os pontos necessários não podem ser negativos.");
         }
         this.numero = numero;
         this.titulo = titulo;
