@@ -4,6 +4,7 @@ import br.com.deeplog.requisitos.Requisito;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class PerfilMergulho {
     private final java.util.UUID id = java.util.UUID.randomUUID();
@@ -15,10 +16,10 @@ public class PerfilMergulho {
 
     public PerfilMergulho(PontoMergulho ponto, String nome, double profundidadePrevistaM) {
         if (ponto == null) {
-            throw new IllegalArgumentException("O ponto de mergulho é obrigatório.");
+            throw new import ValidacaoException("O ponto de mergulho é obrigatório.");
         }
         if (profundidadePrevistaM <= 0) {
-            throw new IllegalArgumentException("A profundidade máxima deve ser maior que zero.");
+            throw new import ValidacaoException("A profundidade máxima deve ser maior que zero.");
         }
         this.ponto = ponto;
         this.nome = nome;
