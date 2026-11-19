@@ -1,4 +1,5 @@
 package br.com.deeplog.model;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class PontoMergulho {
     private final java.util.UUID id = java.util.UUID.randomUUID();
@@ -9,7 +10,7 @@ public class PontoMergulho {
 
     public PontoMergulho(String nome, String localizacao, String descricao, String caracteristicas) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome do ponto é obrigatório.");
+            throw new import ValidacaoException("O nome do ponto é obrigatório.");
         }
         this.nome = nome;
         this.localizacao = localizacao;
