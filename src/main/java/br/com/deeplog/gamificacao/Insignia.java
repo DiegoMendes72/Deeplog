@@ -1,5 +1,7 @@
 package br.com.deeplog.gamificacao;
 
+import br.com.deeplog.excecoes.ValidacaoException;
+
 public class Insignia {
     private String nome;
     private String iconeUrl;
@@ -7,7 +9,7 @@ public class Insignia {
 
     public Insignia(String nome, String iconeUrl, String criterioConcessao) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome da insígnia é obrigatório.");
+            throw new import ValidacaoException("O nome da insígnia é obrigatório.");
         }
         this.nome = nome;
         this.iconeUrl = iconeUrl;
