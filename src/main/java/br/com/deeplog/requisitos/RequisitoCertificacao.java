@@ -6,6 +6,7 @@ import br.com.deeplog.model.Mergulhador;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class RequisitoCertificacao extends Requisito {
     private final Set<Certificacao> certificacoesAceitas;
@@ -13,7 +14,7 @@ public class RequisitoCertificacao extends Requisito {
     public RequisitoCertificacao(String descricao, String fonte, Set<Certificacao> certificacoesAceitas) {
         super(descricao, fonte);
         if (certificacoesAceitas == null || certificacoesAceitas.isEmpty()) {
-            throw new IllegalArgumentException("Ao menos uma certificação aceita deve ser informada.");
+            throw new import ValidacaoException("Ao menos uma certificação aceita deve ser informada.");
         }
         this.certificacoesAceitas = new HashSet<>(certificacoesAceitas);
     }
