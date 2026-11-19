@@ -1,6 +1,8 @@
 package br.com.deeplog.model;
 import br.com.deeplog.enums.EstadoDesejo;
 import java.util.Objects;
+import br.com.deeplog.excecoes.ValidacaoException;
+
 public class ItemListaDesejos {
     private final Mergulhador usuario;
     private final PontoMergulho ponto;
@@ -9,7 +11,7 @@ public class ItemListaDesejos {
     public ItemListaDesejos(Mergulhador usuario, PontoMergulho ponto, PerfilMergulho perfil) {
         this.usuario = Objects.requireNonNull(usuario);
         this.ponto = Objects.requireNonNull(ponto);
-        if (perfil != null && perfil.getPonto() != ponto) throw new IllegalArgumentException("Perfil de outro ponto.");
+        if (perfil != null && perfil.getPonto() != ponto) throw new import ValidacaoException("Perfil de outro ponto.");
         this.perfil = perfil;
     }
     public void marcarPlanejado() { estado = EstadoDesejo.PLANEJADO; }
