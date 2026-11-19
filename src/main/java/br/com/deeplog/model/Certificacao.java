@@ -1,4 +1,5 @@
 package br.com.deeplog.model;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class Certificacao {
     private final java.util.UUID id = java.util.UUID.randomUUID();
@@ -8,7 +9,7 @@ public class Certificacao {
 
     public Certificacao(String nome, String certificadora, br.com.deeplog.enums.TipoCertificacao tipo) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome da certificação é obrigatório.");
+            throw new import ValidacaoException("O nome da certificação é obrigatório.");
         }
         this.nome = nome;
         this.certificadora = certificadora;
