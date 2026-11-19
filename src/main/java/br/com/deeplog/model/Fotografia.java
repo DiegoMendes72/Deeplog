@@ -1,6 +1,7 @@
 package br.com.deeplog.model;
 
 import java.time.LocalDateTime;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class Fotografia {
     private final java.util.UUID id = java.util.UUID.randomUUID();
@@ -11,7 +12,7 @@ public class Fotografia {
 
     public Fotografia(String caminho, String legenda) {
         if (caminho == null || caminho.trim().isEmpty()) {
-            throw new IllegalArgumentException("O caminho do arquivo é obrigatório.");
+            throw new import ValidacaoException("O caminho do arquivo é obrigatório.");
         }
         this.caminho = caminho;
         this.legenda = legenda;
@@ -22,7 +23,7 @@ public class Fotografia {
         return caminho;
     }
     void vincular(RegistroMergulho registro) {
-        if (this.registro != null && this.registro != registro) throw new IllegalArgumentException("Foto já pertence a outro registro.");
+        if (this.registro != null && this.registro != registro) throw new import ValidacaoException("Foto já pertence a outro registro.");
         this.registro = registro;
     }
     public java.util.UUID getId() { return id; }
