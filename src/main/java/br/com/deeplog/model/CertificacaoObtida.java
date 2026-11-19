@@ -1,6 +1,7 @@
 package br.com.deeplog.model;
 
 import java.time.LocalDate;
+import br.com.deeplog.excecoes.ValidacaoException;
 
 public class CertificacaoObtida {
     private final java.util.UUID id = java.util.UUID.randomUUID();
@@ -11,7 +12,7 @@ public class CertificacaoObtida {
 
     public CertificacaoObtida(Certificacao certificacao, LocalDate dataConclusao, String numeroRegistro) {
         if (certificacao == null) {
-            throw new IllegalArgumentException("A certificação é obrigatória.");
+            throw new import ValidacaoException("A certificação é obrigatória.");
         }
         this.certificacao = certificacao;
         this.dataConclusao = (dataConclusao != null) ? dataConclusao : LocalDate.now();
@@ -22,7 +23,7 @@ public class CertificacaoObtida {
         return certificacao;
     }
     void vincular(Mergulhador titular) {
-        if (this.titular != null && this.titular != titular) throw new IllegalArgumentException("Certificação de outro usuário.");
+        if (this.titular != null && this.titular != titular) throw new import ValidacaoException("Certificação de outro usuário.");
         this.titular = titular;
     }
     public void atualizar(java.time.LocalDate dataConclusao, String numeroRegistro) {
