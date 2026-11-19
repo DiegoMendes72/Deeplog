@@ -1,5 +1,7 @@
 package br.com.deeplog.gamificacao;
 
+import br.com.deeplog.excecoes.ValidacaoException;
+
 public class Conquista {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private RegraConquista regra;
@@ -9,10 +11,10 @@ public class Conquista {
 
     public Conquista(String nome, String descricao, int pontosRecompensa) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome da conquista é obrigatório.");
+            throw new import ValidacaoException("O nome da conquista é obrigatório.");
         }
         if (pontosRecompensa < 0) {
-            throw new IllegalArgumentException("Os pontos de recompensa não podem ser negativos.");
+            throw new import ValidacaoException("Os pontos de recompensa não podem ser negativos.");
         }
         this.nome = nome;
         this.descricao = descricao;
