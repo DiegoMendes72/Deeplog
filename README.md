@@ -45,3 +45,7 @@ O projeto utiliza o **Maven** e requer o JDK 21 instalado. Na pasta raiz do proj
 **Compilar o projeto:**
 ```bash
 mvn clean compile
+
+**Compilar o projeto:**
+```bash
+mvn exec:java -Dexec.mainClass="br.com.deeplog.Main"
