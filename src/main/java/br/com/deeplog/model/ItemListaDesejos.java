@@ -11,7 +11,7 @@ public class ItemListaDesejos {
     public ItemListaDesejos(Mergulhador usuario, PontoMergulho ponto, PerfilMergulho perfil) {
         this.usuario = Objects.requireNonNull(usuario);
         this.ponto = Objects.requireNonNull(ponto);
-        if (perfil != null && perfil.getPonto() != ponto) throw new import ValidacaoException("Perfil de outro ponto.");
+        if (perfil != null && perfil.getPonto() != ponto) throw new ValidacaoException("Perfil de outro ponto.");
         this.perfil = perfil;
     }
     public void marcarPlanejado() { estado = EstadoDesejo.PLANEJADO; }
