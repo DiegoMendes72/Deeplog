@@ -40,31 +40,8 @@ A relação entre o diagrama e o código está em [MODELAGEM.md](MODELAGEM.md).
 
 ## como executar
 
-requer JDK 21. na pasta do projeto, compile e execute:
+O projeto utiliza o **Maven**. Requer JDK 21 instalado. Na pasta raiz do projeto, utilize:
 
-**Windows — PowerShell**
-
-```powershell
-$fontes = @(Get-ChildItem src/main/java,src/test/java -Recurse -Filter *.java | ForEach-Object { $_.FullName })
-javac -encoding UTF-8 -d build $fontes
-java -cp build br.com.deeplog.Main
-```
-
-**Linux ou GitHub Codespaces**
-
+**Compilar o projeto:**
 ```bash
-find src/main/java src/test/java -name '*.java' > fontes.txt
-javac -encoding UTF-8 -d build @fontes.txt
-java -cp build br.com.deeplog.Main
-```
-
-o main demonstra cadastro, login, registro, coleção, compatibilidade, conquistas, estatísticas e logout.
-
-## testes
-
-após compilar, execute:
-
-```text
-java -ea -cp build br.com.deeplog.AutenticacaoTest
-java -ea -cp build br.com.deeplog.ModelagemTest
-```
+mvn clean compile
