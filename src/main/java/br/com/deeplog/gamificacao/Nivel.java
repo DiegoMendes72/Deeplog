@@ -9,13 +9,13 @@ public class Nivel {
 
     public Nivel(int numero, String titulo, int pontosNecessarios) {
         if (numero <= 0) {
-            throw new import ValidacaoException("O número do nível deve ser maior que zero.");
+            throw new ValidacaoException("O número do nível deve ser maior que zero.");
         }
         if (titulo == null || titulo.trim().isEmpty()) {
-            throw new import ValidacaoException("O título do nível é obrigatório.");
+            throw new ValidacaoException("O título do nível é obrigatório.");
         }
         if (pontosNecessarios < 0) {
-            throw new import ValidacaoException("Os pontos necessários não podem ser negativos.");
+            throw new ValidacaoException("Os pontos necessários não podem ser negativos.");
         }
         this.numero = numero;
         this.titulo = titulo;
