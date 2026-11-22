@@ -9,7 +9,7 @@ public class RequisitoExperiencia extends Requisito {
     public RequisitoExperiencia(String descricao, String fonte, int minimoMergulhos) {
         super(descricao, fonte);
         if (minimoMergulhos < 0) {
-            throw new import ValidacaoException("A quantidade mínima de mergulhos não pode ser negativa.");
+            throw new ValidacaoException("A quantidade mínima de mergulhos não pode ser negativa.");
         }
         this.minimoMergulhos = minimoMergulhos;
     }
