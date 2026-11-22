@@ -17,10 +17,10 @@ public class Mergulhador {
 
     public Mergulhador(String nome, String email, String senhaHash) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new import ValidacaoException("O nome é obrigatório.");
+            throw new ValidacaoException("O nome é obrigatório.");
         }
         if (email == null || !email.contains("@")) {
-            throw new import ValidacaoException("E-mail inválido.");
+            throw new ValidacaoException("E-mail inválido.");
         }
         this.nome = nome;
         this.email = email;
@@ -48,7 +48,7 @@ public class Mergulhador {
     public Integer getExperienciaAnterior() { return experienciaAnterior; }
     public void atualizarPerfil(String nome, Integer experienciaAnterior) {
         if (nome == null || nome.isBlank() || (experienciaAnterior != null && experienciaAnterior < 0)) {
-            throw new import ValidacaoException("Nome e experiência inválidos.");
+            throw new ValidacaoException("Nome e experiência inválidos.");
         }
         this.nome = nome.trim();
         this.experienciaAnterior = experienciaAnterior;
