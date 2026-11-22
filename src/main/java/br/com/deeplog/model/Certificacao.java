@@ -9,7 +9,7 @@ public class Certificacao {
 
     public Certificacao(String nome, String certificadora, br.com.deeplog.enums.TipoCertificacao tipo) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new import ValidacaoException("O nome da certificação é obrigatório.");
+            throw new ValidacaoException("O nome da certificação é obrigatório.");
         }
         this.nome = nome;
         this.certificadora = certificadora;
