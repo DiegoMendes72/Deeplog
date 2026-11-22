@@ -12,13 +12,13 @@ public class Desafio {
 
     public Desafio(String titulo, String descricao, LocalDate dataInicio, LocalDate dataFim, int pontosRecompensa) {
         if (titulo == null || titulo.trim().isEmpty()) {
-            throw new import ValidacaoException("O título do desafio é obrigatório.");
+            throw new ValidacaoException("O título do desafio é obrigatório.");
         }
         if (dataInicio != null && dataFim != null && dataFim.isBefore(dataInicio)) {
-            throw new import ValidacaoException("A data de fim não pode ser anterior à data de início.");
+            throw new ValidacaoException("A data de fim não pode ser anterior à data de início.");
         }
         if (pontosRecompensa < 0) {
-            throw new import ValidacaoException("Os pontos não podem ser negativos.");
+            throw new ValidacaoException("Os pontos não podem ser negativos.");
         }
         this.titulo = titulo;
         this.descricao = descricao;
