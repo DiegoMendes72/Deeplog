@@ -11,10 +11,10 @@ public class Conquista {
 
     public Conquista(String nome, String descricao, int pontosRecompensa) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new import ValidacaoException("O nome da conquista é obrigatório.");
+            throw new ValidacaoException("O nome da conquista é obrigatório.");
         }
         if (pontosRecompensa < 0) {
-            throw new import ValidacaoException("Os pontos de recompensa não podem ser negativos.");
+            throw new ValidacaoException("Os pontos de recompensa não podem ser negativos.");
         }
         this.nome = nome;
         this.descricao = descricao;
