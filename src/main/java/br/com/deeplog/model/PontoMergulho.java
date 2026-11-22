@@ -10,7 +10,7 @@ public class PontoMergulho {
 
     public PontoMergulho(String nome, String localizacao, String descricao, String caracteristicas) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new import ValidacaoException("O nome do ponto é obrigatório.");
+            throw new ValidacaoException("O nome do ponto é obrigatório.");
         }
         this.nome = nome;
         this.localizacao = localizacao;
