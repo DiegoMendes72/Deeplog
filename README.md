@@ -18,11 +18,11 @@ Os dados ficam em memória. Esta entrega não inclui interface web nem banco de 
 
 Evolução da aplicação incorporando robustez, tratamento de falhas e automação:
 
-- **Tratamento de Exceções Personalizadas:** Classes específicas (`ValidacaoException`, `AutenticacaoException`, `PersistenciaException`) com mensagens úteis[span_0](start_span)[span_0](end_span).
-- **Uso Adequado de Coleções:** Aplicação correta de `List`, `Set` e `Map` (`EnumMap`) nas estruturas de dados e regras de negócio[span_1](start_span)[span_1](end_span).
-- **Persistência em Arquivo (I/O):** Leitura e escrita do histórico de mergulhos utilizando os recursos de `java.nio.file` (`RepositorioArquivo`)[span_2](start_span)[span_2](end_span).
-- **Testes Unitários:** Validação automatizada utilizando **JUnit 5** (`AutenticacaoTest` e `ModelagemTest`)[span_3](start_span)[span_3](end_span).
-- **Código Limpo:** Estrutura organizada por domínio e livre de duplicações[span_4](start_span)[span_4](end_span).
+- **Tratamento de Exceções Personalizadas:** Classes específicas (`ValidacaoException`, `AutenticacaoException`, `PersistenciaException`) com mensagens úteis.
+- **Uso Adequado de Coleções:** Aplicação correta de `List`, `Set` e `Map` (`EnumMap`) nas estruturas de dados e regras de negócio.
+- **Persistência em Arquivo (I/O):** Leitura e escrita do histórico de mergulhos utilizando os recursos de `java.nio.file` (`RepositorioArquivo`).
+- **Testes Unitários:** Validação automatizada utilizando **JUnit 5** (`AutenticacaoTest` e `ModelagemTest`).
+- **Código Limpo:** Estrutura organizada por domínio e livre de duplicações.
 
 ## organização
 
@@ -31,10 +31,10 @@ Evolução da aplicação incorporando robustez, tratamento de falhas e automaç
 - `autenticacao`: cadastro, senha e sessão;
 - `gamificacao`: carimbos e regras de conquista;
 - `servicos`: estatísticas;
-- `persistencia`: leitura e escrita em arquivo (`RepositorioArquivo`)[span_5](start_span)[span_5](end_span);
-- `excecoes`: exceções personalizadas do sistema[span_6](start_span)[span_6](end_span);
+- `persistencia`: leitura e escrita em arquivo (`RepositorioArquivo`);
+- `excecoes`: exceções personalizadas do sistema;
 - `enums`: tipos e estados;
-- `src/test/java`: testes unitários com JUnit 5 (`AutenticacaoTest`, `ModelagemTest`)[span_7](start_span)[span_7](end_span).
+- `src/test/java`: testes unitários com JUnit 5 (`AutenticacaoTest`, `ModelagemTest`).
 
 A relação entre o diagrama e o código está em [MODELAGEM.md](MODELAGEM.md).
 
@@ -45,7 +45,19 @@ O projeto utiliza o **Maven** e requer o JDK 21 instalado. Na pasta raiz do proj
 **Compilar o projeto:**
 ```bash
 mvn clean compile
+```
 
-**Compilar o projeto:**
+**Depois de compilar, copie e cole isso para executar:**
 ```bash
 mvn exec:java -Dexec.mainClass="br.com.deeplog.Main"
+```
+
+O `Main` permite a entrada interativa de dados pelo usuário (cadastro, configuração de ponto e registro de mergulho), demonstrando compatibilidade, coleções, conquistas, estatísticas, persistência em arquivo (`registros_mergulho.txt`) e logout.
+
+## testes
+
+Para executar a suíte completa de testes unitários automatizados com JUnit 5:
+
+```bash
+mvn test
+```
