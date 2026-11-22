@@ -16,10 +16,10 @@ public class PerfilMergulho {
 
     public PerfilMergulho(PontoMergulho ponto, String nome, double profundidadePrevistaM) {
         if (ponto == null) {
-            throw new import ValidacaoException("O ponto de mergulho é obrigatório.");
+            throw new ValidacaoException("O ponto de mergulho é obrigatório.");
         }
         if (profundidadePrevistaM <= 0) {
-            throw new import ValidacaoException("A profundidade máxima deve ser maior que zero.");
+            throw new ValidacaoException("A profundidade máxima deve ser maior que zero.");
         }
         this.ponto = ponto;
         this.nome = nome;
