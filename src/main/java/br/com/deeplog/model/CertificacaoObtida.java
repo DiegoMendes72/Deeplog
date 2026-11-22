@@ -12,7 +12,7 @@ public class CertificacaoObtida {
 
     public CertificacaoObtida(Certificacao certificacao, LocalDate dataConclusao, String numeroRegistro) {
         if (certificacao == null) {
-            throw new import ValidacaoException("A certificação é obrigatória.");
+            throw new ValidacaoException("A certificação é obrigatória.");
         }
         this.certificacao = certificacao;
         this.dataConclusao = (dataConclusao != null) ? dataConclusao : LocalDate.now();
@@ -23,7 +23,7 @@ public class CertificacaoObtida {
         return certificacao;
     }
     void vincular(Mergulhador titular) {
-        if (this.titular != null && this.titular != titular) throw new import ValidacaoException("Certificação de outro usuário.");
+        if (this.titular != null && this.titular != titular) throw new ValidacaoException("Certificação de outro usuário.");
         this.titular = titular;
     }
     public void atualizar(java.time.LocalDate dataConclusao, String numeroRegistro) {
