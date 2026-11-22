@@ -59,6 +59,12 @@ public class ServicoAutenticacao {
         return atual.getUsuario();
     }
 
+    public synchronized void logout(String token) {
+        if (token != null) {
+            sessoes.remove(token);
+        }
+    }
+
     public void sair(Sessao sessao) { if (sessao != null) logout(sessao.getId().toString()); }
     
     public synchronized void atualizarPerfil(String sessao, String nome, Integer experienciaAnterior) {
