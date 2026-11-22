@@ -14,7 +14,7 @@ public class RequisitoCertificacao extends Requisito {
     public RequisitoCertificacao(String descricao, String fonte, Set<Certificacao> certificacoesAceitas) {
         super(descricao, fonte);
         if (certificacoesAceitas == null || certificacoesAceitas.isEmpty()) {
-            throw new import ValidacaoException("Ao menos uma certificação aceita deve ser informada.");
+            throw new ValidacaoException("Ao menos uma certificação aceita deve ser informada.");
         }
         this.certificacoesAceitas = new HashSet<>(certificacoesAceitas);
     }
