@@ -29,11 +29,11 @@ public class RegistroMergulho {
 
     public RegistroMergulho(Mergulhador autor, PerfilMergulho perfil, LocalDateTime dataHora, int duracaoMin, double profundidadeMaximaM) {
         if (autor == null || perfil == null) {
-            throw new import ValidacaoException("Mergulhador e Perfil de Mergulho são obrigatórios.");
+            throw new ValidacaoException("Mergulhador e Perfil de Mergulho são obrigatórios.");
         }
         if (duracaoMin <= 0
                 || !Double.isFinite(profundidadeMaximaM) || profundidadeMaximaM < 0) {
-            throw new import ValidacaoException("A duração deve ser maior que zero.");
+            throw new ValidacaoException("A duração deve ser maior que zero.");
         }
         this.autor = autor;
         this.perfil = perfil;
@@ -57,7 +57,7 @@ public class RegistroMergulho {
             String localInformado, LocalDateTime data, int duracao, double profundidade) {
         if (autor == null || (ponto == null && (localInformado == null || localInformado.isBlank()))
                 || (perfil != null && perfil.getPonto() != ponto)) {
-            throw new import ValidacaoException("Autor, local e perfil incompatíveis.");
+            throw new ValidacaoException("Autor, local e perfil incompatíveis.");
         }
         this.autor = autor;
         this.ponto = ponto;
@@ -74,7 +74,7 @@ public class RegistroMergulho {
                 || !Double.isFinite(profundidade) || profundidade < 0
                 || (temperatura != null && !Double.isFinite(temperatura))
                 || (visibilidade != null && (!Double.isFinite(visibilidade) || visibilidade < 0))) {
-            throw new import ValidacaoException("Dados de mergulho inválidos.");
+            throw new ValidacaoException("Dados de mergulho inválidos.");
         }
         this.dataHora = data;
         this.duracaoMin = duracao;
@@ -89,7 +89,7 @@ public class RegistroMergulho {
         this.condicoes = condicoes;
     }
     public void definirCapa(Fotografia foto) {
-        if (foto == null || !fotografias.contains(foto)) throw new import ValidacaoException("A capa deve pertencer ao registro.");
+        if (foto == null || !fotografias.contains(foto)) throw new ValidacaoException("A capa deve pertencer ao registro.");
         this.capa = foto;
     }
     public java.util.UUID getId() { return id; }
