@@ -1,18 +1,28 @@
 # DeepLog
 
-passaporte digital de aventuras subaquáticas. o projeto organiza registros de mergulho, fotografias, certificações e destinos de interesse.
+Passaporte digital de aventuras subaquáticas. O projeto organiza registros de mergulho, fotografias, certificações e destinos de interesse.
 
 ## etapa 3 — implementação parcial
 
-implementação em Java das classes do diagrama da etapa 2, com encapsulamento, construtores, herança e polimorfismo.
+Implementação em Java das classes do diagrama da etapa 2, com encapsulamento, construtores, herança e polimorfismo.
 
-- cadastro, login e logout, com verificação de senha e sessão com expiração;
-- pontos e perfis de mergulho, certificações e verificação de requisitos;
-- registros de mergulho, avaliação de dificuldade, fotografias e coleções;
-- objetivos de formação e lista de desejos;
-- carimbos, conquistas e estatísticas do histórico.
+- Cadastro, login e logout, com verificação de senha e sessão com expiração;
+- Pontos e perfis de mergulho, certificações e verificação de requisitos;
+- Registros de mergulho, avaliação de dificuldade, fotografias e coleções;
+- Objetivos de formação e lista de desejos;
+- Carimbos, conquistas e estatísticas do histórico.
 
-os dados ficam em memória. esta entrega não inclui interface web nem banco de dados.
+Os dados ficam em memória. Esta entrega não inclui interface web nem banco de dados.
+
+## etapa 4 — persistência, exceções e testes
+
+Evolução da aplicação incorporando robustez, tratamento de falhas e automação:
+
+- **Tratamento de Exceções Personalizadas:** Classes específicas (`ValidacaoException`, `AutenticacaoException`, `PersistenciaException`) com mensagens úteis.
+- **Uso Adequado de Coleções:** Aplicação correta de `List`, `Set` e `Map` (`EnumMap`) nas estruturas de dados e regras de negócio.
+- **Persistência em Arquivo (I/O):** Leitura e escrita do histórico de mergulhos utilizando os recursos de `java.nio.file` (`RepositorioArquivo`).
+- **Testes Unitários:** Validação automatizada utilizando **JUnit 5** (`AutenticacaoTest` e `ModelagemTest`).
+- **Código Limpo:** Estrutura organizada por domínio e livre de duplicações.
 
 ## organização
 
@@ -21,10 +31,12 @@ os dados ficam em memória. esta entrega não inclui interface web nem banco de 
 - `autenticacao`: cadastro, senha e sessão;
 - `gamificacao`: carimbos e regras de conquista;
 - `servicos`: estatísticas;
+- `persistencia`: leitura e escrita em arquivo (`RepositorioArquivo`);
+- `excecoes`: exceções personalizadas do sistema;
 - `enums`: tipos e estados;
-- `src/test/java`: testes de autenticação e modelagem.
+- `src/test/java`: testes unitários com JUnit 5 (`AutenticacaoTest`, `ModelagemTest`).
 
-a relação entre o diagrama e o código está em [MODELAGEM.md](MODELAGEM.md).
+A relação entre o diagrama e o código está em [MODELAGEM.md](MODELAGEM.md).
 
 ## como executar
 
