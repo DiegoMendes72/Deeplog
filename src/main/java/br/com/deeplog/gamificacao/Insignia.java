@@ -9,7 +9,7 @@ public class Insignia {
 
     public Insignia(String nome, String iconeUrl, String criterioConcessao) {
         if (nome == null || nome.trim().isEmpty()) {
-            throw new import ValidacaoException("O nome da insígnia é obrigatório.");
+            throw new ValidacaoException("O nome da insígnia é obrigatório.");
         }
         this.nome = nome;
         this.iconeUrl = iconeUrl;
