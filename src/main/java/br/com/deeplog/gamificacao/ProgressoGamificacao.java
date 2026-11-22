@@ -15,7 +15,7 @@ public class ProgressoGamificacao {
 
     public ProgressoGamificacao(Mergulhador mergulhador, Nivel nivelInicial) {
         if (mergulhador == null) {
-            throw new import ValidacaoException("O mergulhador é obrigatório.");
+            throw new ValidacaoException("O mergulhador é obrigatório.");
         }
         this.mergulhador = mergulhador;
         this.nivelAtual = nivelInicial;
