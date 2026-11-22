@@ -1,22 +1,26 @@
 package br.com.deeplog.gamificacao;
+
 import br.com.deeplog.model.*;
 import java.time.LocalDateTime;
 import java.util.*;
+
 public class ServicoGamificacao {
     private final List<RegistroMergulho> registros;
-    private final List<Colecao> colecoes;
     private final List<Conquista> conquistas;
     private final Map<Mergulhador, List<Carimbo>> carimbos = new HashMap<>();
     private final Map<Mergulhador, List<ConquistaObtida>> obtidas = new HashMap<>();
+
     public ServicoGamificacao(List<RegistroMergulho> registros, List<Colecao> colecoes) {
         this.registros = Objects.requireNonNull(registros);
-        this.colecoes = Objects.requireNonNull(colecoes);
+        List<Colecao> colecoesLocais = Objects.requireNonNull(colecoes);
+        
         conquistas = List.of(
             new Conquista("Primeiro registro", "Registrou um mergulho", u -> registros.stream().anyMatch(r -> r.getAutor() == u)),
             new Conquista("Primeira foto", "Registrou uma fotografia", u -> registros.stream().anyMatch(r -> r.getAutor() == u && !r.getFotografias().isEmpty())),
-            new Conquista("Primeira coleção", "Organizou uma coleção", u -> colecoes.stream().anyMatch(c -> c.getProprietario() == u && c.getRegistros().stream().anyMatch(registros::contains)))
+            new Conquista("Primeira coleção", "Organizou uma coleção", u -> colecoesLocais.stream().anyMatch(c -> c.getProprietario() == u && c.getRegistros().stream().anyMatch(registros::contains)))
         );
     }
+
     public void recalcular(Mergulhador usuario) {
         Objects.requireNonNull(usuario);
         Map<PontoMergulho, java.time.LocalDate> visitas = new LinkedHashMap<>();
@@ -36,6 +40,7 @@ public class ServicoGamificacao {
         }
         obtidas.put(usuario, atuais);
     }
+
     public List<Carimbo> getCarimbos(Mergulhador usuario) { return List.copyOf(carimbos.getOrDefault(usuario,List.of())); }
     public List<ConquistaObtida> getConquistas(Mergulhador usuario) { return List.copyOf(obtidas.getOrDefault(usuario,List.of())); }
 }
