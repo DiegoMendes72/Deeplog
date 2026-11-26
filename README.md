@@ -4,11 +4,15 @@ Passaporte digital de aventuras subaquáticas. O projeto organiza registros de m
 
 ## etapa 1 — ideia
 
-Escolha do tema e definição do que o sistema faz.
+Escolha do tema, definição do que o sistema faz e diagrama de casos de uso.
+
+![casos de uso](docs/diagrama-de-casos-de-uso.png)
 
 ## etapa 2 — diagrama de classes
 
 Diagrama UML com as classes do sistema. A ligação com o código está em [MODELAGEM.md](MODELAGEM.md).
+
+![diagrama de classes](docs/diagrama-de-classes.png)
 
 ## etapa 3 — implementação parcial
 
