@@ -15,10 +15,7 @@ public class RequisitoExperiencia extends Requisito {
     }
 
     @Override
-    public Verificacao verificar(Mergulhador mergulhador) {
-        if (mergulhador == null) {
-            return new Verificacao(EstadoVerificacao.INDETERMINADO, "Mergulhador não informado.");
-        }
+    protected Verificacao executarVerificacaoEspecifica(Mergulhador mergulhador) {
         if (mergulhador.getQuantidadeMergulhos() >= minimoMergulhos) {
             return new Verificacao(EstadoVerificacao.ATENDIDO, getDescricao());
         }
