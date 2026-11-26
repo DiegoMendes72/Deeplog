@@ -29,10 +29,8 @@ Evolução da aplicação incorporando robustez, tratamento de falhas e automaç
 Evolução arquitetural com a aplicação de padrões de projeto para maior flexibilidade e organização:
 
 - **Strategy (Comportamental):** Aplicado no pacote `gamificacao` para definir de forma desacoplada as diferentes regras de liberação de conquistas e carimbos dos mergulhadores.
-- **Template Method (Comportamental):** Aplicado no pacote `requisitos` através da classe abstrata `ValidadorRequisitoTemplate`, padronizando o esqueleto do algoritmo de validação de compatibilidade (pré-validação, execução de critérios específicos e pós-processamento).
+- **Template Method (Comportamental):** Aplicado no pacote `requisitos` através da classe abstrata `Requisito`, padronizando o esqueleto do algoritmo de validação (`verificar`) e delegando os critérios específicos de validação às subclasses (`RequisitoExperiencia` e `RequisitoCertificacao`).
 - **Javadoc:** Documentação formal adicionada em todas as classes e métodos públicos do sistema (`/** ... */`).
-
-## organização
 
 ## organização
 
