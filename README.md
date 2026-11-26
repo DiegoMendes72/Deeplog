@@ -2,6 +2,14 @@
 
 Passaporte digital de aventuras subaquáticas. O projeto organiza registros de mergulho, fotografias, certificações e destinos de interesse.
 
+## etapa 1 — ideia
+
+Escolha do tema e definição do que o sistema faz.
+
+## etapa 2 — diagrama de classes
+
+Diagrama UML com as classes do sistema. A ligação com o código está em [MODELAGEM.md](MODELAGEM.md).
+
 ## etapa 3 — implementação parcial
 
 Implementação em Java das classes do diagrama da etapa 2, com encapsulamento, construtores, herança e polimorfismo.
