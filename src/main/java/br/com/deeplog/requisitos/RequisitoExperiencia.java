@@ -3,9 +3,19 @@ package br.com.deeplog.requisitos;
 import br.com.deeplog.model.Mergulhador;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Requisito que exige uma quantidade mínima de mergulhos.
+ */
 public class RequisitoExperiencia extends Requisito {
     private int minimoMergulhos;
 
+    /**
+     * Cria o requisito.
+     *
+     * @param descricao descrição do requisito
+     * @param fonte fonte da informação
+     * @param minimoMergulhos quantidade mínima de mergulhos
+     */
     public RequisitoExperiencia(String descricao, String fonte, int minimoMergulhos) {
         super(descricao, fonte);
         if (minimoMergulhos < 0) {

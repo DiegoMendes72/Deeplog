@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Pontos, nível e conquistas de um mergulhador.
+ */
 public class ProgressoGamificacao {
     private Mergulhador mergulhador;
     private int pontosTotais;
@@ -24,18 +27,21 @@ public class ProgressoGamificacao {
         this.insigniasObtidas = new HashSet<>();
     }
 
+    /** Soma pontos ao progresso. */
     public void adicionarPontos(int pontos) {
         if (pontos > 0) {
             this.pontosTotais += pontos;
         }
     }
 
+    /** Libera uma conquista e soma seus pontos. */
     public void desbloquearConquista(Conquista conquista) {
         if (conquista != null && conquistasDesbloqueadas.add(conquista)) {
             adicionarPontos(conquista.getPontosRecompensa());
         }
     }
 
+    /** Dá uma insígnia ao mergulhador. */
     public void concederInsignia(Insignia insignia) {
         if (insignia != null) {
             this.insigniasObtidas.add(insignia);

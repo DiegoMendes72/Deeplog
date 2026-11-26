@@ -2,6 +2,9 @@ package br.com.deeplog.gamificacao;
 
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Conquista que pode ser liberada por uma regra.
+ */
 public class Conquista {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private RegraConquista regra;

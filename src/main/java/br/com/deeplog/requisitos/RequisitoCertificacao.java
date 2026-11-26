@@ -8,9 +8,19 @@ import java.util.HashSet;
 import java.util.Set;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Requisito que exige uma das certificações aceitas.
+ */
 public class RequisitoCertificacao extends Requisito {
     private final Set<Certificacao> certificacoesAceitas;
 
+    /**
+     * Cria o requisito.
+     *
+     * @param descricao descrição do requisito
+     * @param fonte fonte da informação
+     * @param certificacoesAceitas certificações que atendem o requisito
+     */
     public RequisitoCertificacao(String descricao, String fonte, Set<Certificacao> certificacoesAceitas) {
         super(descricao, fonte);
         if (certificacoesAceitas == null || certificacoesAceitas.isEmpty()) {

@@ -24,13 +24,34 @@ Evolução da aplicação incorporando robustez, tratamento de falhas e automaç
 - **Testes Unitários:** Validação automatizada utilizando **JUnit 5** (`AutenticacaoTest` e `ModelagemTest`).
 - **Código Limpo:** Estrutura organizada por domínio e livre de duplicações.
 
-## etapa 5 — padrões de projeto (GoF), javadoc e refatoração
+## etapa 5 — padrões de projeto
 
-Evolução arquitetural com a aplicação de padrões de projeto para maior flexibilidade e organização:
+Foram aplicados dois padrões GoF no sistema.
 
-- **Strategy (Comportamental):** Aplicado no pacote `gamificacao` para definir de forma desacoplada as diferentes regras de liberação de conquistas e carimbos dos mergulhadores.
-- **Template Method (Comportamental):** Aplicado no pacote `requisitos` através da classe abstrata `Requisito`, padronizando o esqueleto do algoritmo de validação (`verificar`) e delegando os critérios específicos de validação às subclasses (`RequisitoExperiencia` e `RequisitoCertificacao`).
-- **Javadoc:** Documentação formal adicionada em todas as classes e métodos públicos do sistema (`/** ... */`).
+### Strategy (pacote `gamificacao`)
+
+**Problema:** as regras das conquistas estavam escritas como lambdas dentro do construtor do `ServicoGamificacao`. Para criar ou mudar uma regra era preciso mexer no serviço, e o código ficava difícil de ler.
+
+**Solução:** a interface `RegraConquista` é a estratégia, com o método `atendida(Mergulhador)`. Cada regra virou uma classe:
+
+- `RegraPrimeiroRegistro`: o mergulhador tem pelo menos um registro;
+- `RegraPrimeiraFoto`: tem um registro com foto;
+- `RegraPrimeiraColecao`: tem uma coleção com registros;
+- `RegraMergulhoProfundo`: passou de uma profundidade mínima (nova regra, 20 metros).
+
+Cada `Conquista` recebe a sua regra, e o `ServicoGamificacao` só chama `getRegra().atendida(usuario)`, sem saber como cada regra funciona.
+
+**Por que é adequado:** as conquistas mudam com frequência. Com o Strategy, uma regra nova é só uma classe nova que implementa `RegraConquista`, sem alterar a lógica do serviço. Foi assim que a conquista "Mergulho profundo" foi adicionada.
+
+### Template Method (pacote `requisitos`)
+
+**Problema:** `RequisitoExperiencia` e `RequisitoCertificacao` repetiam a mesma verificação no início do método `verificar` (se o mergulhador era nulo, o resultado era `INDETERMINADO`).
+
+**Solução:** a classe abstrata `Requisito` agora tem o método `verificar` como método template (`final`). Ele confere os dados básicos (`dadosBasicosValidos`) e depois chama o método abstrato `executarVerificacaoEspecifica`, que cada subclasse implementa com a sua regra específica.
+
+**Por que é adequado:** todos os requisitos seguem os mesmos passos e só mudam na verificação final. O Template Method tira a repetição e garante que nenhum requisito esqueça a verificação comum. Um requisito novo só precisa implementar `executarVerificacaoEspecifica`.
+
+As classes e métodos públicos têm Javadoc. O `PadroesTest` testa os dois padrões, e o `Main` mostra as conquistas liberadas pelas regras.
 
 ## organização
 
@@ -42,7 +63,7 @@ Evolução arquitetural com a aplicação de padrões de projeto para maior flex
 - `persistencia`: leitura e escrita em arquivo (`RepositorioArquivo`);
 - `excecoes`: exceções personalizadas do sistema;
 - `enums`: tipos e estados;
-- `src/test/java`: testes unitários com JUnit 5 (`AutenticacaoTest`, `ModelagemTest`).
+- `src/test/java`: testes unitários com JUnit 5 (`AutenticacaoTest`, `ModelagemTest`, `PadroesTest`).
 
 A relação entre o diagrama e o código está em [MODELAGEM.md](MODELAGEM.md).
 

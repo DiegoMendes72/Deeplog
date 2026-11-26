@@ -1,6 +1,9 @@
 package br.com.deeplog.model;
 import br.com.deeplog.enums.EstadoObjetivo;
 import java.util.*;
+/**
+ * Certificação que o mergulhador pretende conseguir.
+ */
 public class ObjetivoFormacao {
     private final Mergulhador usuario;
     private final Certificacao certificacao;
@@ -10,7 +13,9 @@ public class ObjetivoFormacao {
         this.usuario = Objects.requireNonNull(usuario);
         this.certificacao = Objects.requireNonNull(certificacao);
     }
+    /** Atualiza o estado do objetivo. */
     public void atualizarEstado(EstadoObjetivo estado) { this.estado = Objects.requireNonNull(estado); }
+    /** Adiciona um perfil de interesse. */
     public void adicionarPerfilInteresse(PerfilMergulho perfil) { perfisInteresse.add(Objects.requireNonNull(perfil)); }
     public Mergulhador getUsuario() { return usuario; }
     public Certificacao getCertificacao() { return certificacao; }

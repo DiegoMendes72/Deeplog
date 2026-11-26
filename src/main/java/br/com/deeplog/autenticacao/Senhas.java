@@ -6,10 +6,14 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+/**
+ * Protege e verifica senhas.
+ */
 public final class Senhas {
     private static final int ITERACOES = 600000;
     private Senhas() { }
 
+    /** Gera o hash da senha. */
     public static String proteger(String senha) {
         if (senha == null || senha.length() < 8) {
             throw new IllegalArgumentException("A senha deve ter pelo menos 8 caracteres.");
@@ -20,6 +24,7 @@ public final class Senhas {
                 + "$" + Base64.getEncoder().encodeToString(derivar(senha, salt));
     }
 
+    /** Confere a senha com o hash. */
     public static boolean verificar(String senha, String hash) {
         if (senha == null || hash == null) return false;
         try {

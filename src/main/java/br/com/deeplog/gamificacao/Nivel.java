@@ -2,6 +2,9 @@ package br.com.deeplog.gamificacao;
 
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Nível do mergulhador na gamificação.
+ */
 public class Nivel {
     private int numero;
     private String titulo;

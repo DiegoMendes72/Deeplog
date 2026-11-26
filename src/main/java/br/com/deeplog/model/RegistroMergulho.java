@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Registro de um mergulho feito pelo mergulhador.
+ */
 public class RegistroMergulho {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private PontoMergulho ponto;
@@ -44,6 +47,7 @@ public class RegistroMergulho {
         this.fotografias = new ArrayList<>();
     }
 
+    /** Adiciona uma foto ao registro (máximo de cinco). */
     public boolean adicionarFoto(Fotografia foto) {
         if (foto != null && !fotografias.contains(foto) && fotografias.size() < 5) {
             foto.vincular(this);
@@ -67,6 +71,7 @@ public class RegistroMergulho {
         atualizarDados(data, duracao, profundidade, null, null, null, false, null, null, null, null);
     }
 
+    /** Atualiza os dados do mergulho. */
     public void atualizarDados(LocalDateTime data, int duracao, double profundidade,
             Double temperatura, Double visibilidade, br.com.deeplog.enums.NivelSujeira sujeira,
             boolean peixes, String fauna, String titulo, String relato, String condicoes) {
@@ -88,6 +93,7 @@ public class RegistroMergulho {
         this.relato = relato;
         this.condicoes = condicoes;
     }
+    /** Define a foto de capa do registro. */
     public void definirCapa(Fotografia foto) {
         if (foto == null || !fotografias.contains(foto)) throw new ValidacaoException("A capa deve pertencer ao registro.");
         this.capa = foto;

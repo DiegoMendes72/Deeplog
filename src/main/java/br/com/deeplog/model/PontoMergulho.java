@@ -1,6 +1,9 @@
 package br.com.deeplog.model;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Local onde o mergulho acontece.
+ */
 public class PontoMergulho {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private String nome;

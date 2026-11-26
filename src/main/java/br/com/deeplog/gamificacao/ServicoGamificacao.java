@@ -4,12 +4,21 @@ import br.com.deeplog.model.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Calcula carimbos e conquistas usando as regras de cada conquista.
+ */
 public class ServicoGamificacao {
     private final List<RegistroMergulho> registros;
     private final List<Conquista> conquistas;
     private final Map<Mergulhador, List<Carimbo>> carimbos = new HashMap<>();
     private final Map<Mergulhador, List<ConquistaObtida>> obtidas = new HashMap<>();
 
+    /**
+     * Cria o serviço.
+     *
+     * @param registros registros de mergulho
+     * @param colecoes coleções dos mergulhadores
+     */
     public ServicoGamificacao(List<RegistroMergulho> registros, List<Colecao> colecoes) {
         this.registros = Objects.requireNonNull(registros);
         Objects.requireNonNull(colecoes);
@@ -22,6 +31,11 @@ public class ServicoGamificacao {
         );
     }
 
+    /**
+     * Recalcula os carimbos e as conquistas do mergulhador.
+     *
+     * @param usuario mergulhador avaliado
+     */
     public void recalcular(Mergulhador usuario) {
         Objects.requireNonNull(usuario);
         Map<PontoMergulho, java.time.LocalDate> visitas = new LinkedHashMap<>();
@@ -42,6 +56,14 @@ public class ServicoGamificacao {
         obtidas.put(usuario, atuais);
     }
 
+    /**
+     * @param usuario mergulhador
+     * @return carimbos do mergulhador
+     */
     public List<Carimbo> getCarimbos(Mergulhador usuario) { return List.copyOf(carimbos.getOrDefault(usuario,List.of())); }
+    /**
+     * @param usuario mergulhador
+     * @return conquistas obtidas pelo mergulhador
+     */
     public List<ConquistaObtida> getConquistas(Mergulhador usuario) { return List.copyOf(obtidas.getOrDefault(usuario,List.of())); }
 }

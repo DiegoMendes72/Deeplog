@@ -6,6 +6,9 @@ import br.com.deeplog.excecoes.AcessoNegadoException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Cadastra e consulta registros de mergulho do usuário logado.
+ */
 public class ServicoRegistros {
     private final ServicoAutenticacao autenticacao;
     private final Map<UUID, RegistroMergulho> registros = new LinkedHashMap<>();
@@ -14,6 +17,7 @@ public class ServicoRegistros {
         this.autenticacao = Objects.requireNonNull(autenticacao);
     }
 
+    /** Registra um mergulho para o usuário da sessão. */
     public synchronized UUID registrar(String sessao, PerfilMergulho perfil,
             LocalDateTime data, int duracao, double profundidade) {
         Mergulhador dono = autenticacao.usuarioDaSessao(sessao);
@@ -24,6 +28,7 @@ public class ServicoRegistros {
         return id;
     }
 
+    /** Consulta um registro do usuário da sessão. */
     public synchronized RegistroMergulho consultar(String sessao, UUID id) {
         Mergulhador dono = autenticacao.usuarioDaSessao(sessao);
         RegistroMergulho registro = registros.get(id);
@@ -33,6 +38,7 @@ public class ServicoRegistros {
         return registro;
     }
 
+    /** Lista os registros do usuário da sessão. */
     public synchronized List<RegistroMergulho> listar(String sessao) {
         Mergulhador dono = autenticacao.usuarioDaSessao(sessao);
         List<RegistroMergulho> resultado = new ArrayList<>();

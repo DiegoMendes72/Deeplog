@@ -3,9 +3,13 @@ import br.com.deeplog.model.*;
 import br.com.deeplog.enums.NivelDificuldade;
 import java.time.*;
 import java.util.*;
+/**
+ * Calcula as estatísticas do histórico de mergulhos.
+ */
 public class ServicoEstatisticas {
     private final List<RegistroMergulho> registros;
     public ServicoEstatisticas(List<RegistroMergulho> registros) { this.registros = Objects.requireNonNull(registros); }
+    /** Calcula as estatísticas do mergulhador no período. */
     public RelatorioEstatistico calcular(Mergulhador usuario, LocalDate inicio, LocalDate fim) {
         Objects.requireNonNull(usuario);
         if (inicio != null && fim != null && fim.isBefore(inicio)) throw new IllegalArgumentException("Período inválido.");

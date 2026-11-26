@@ -1,5 +1,8 @@
 package br.com.deeplog.enums;
 
+/**
+ * Níveis de dificuldade de um mergulho.
+ */
 public enum NivelDificuldade {
     MUITO_FACIL("Muito fácil"),
     FACIL("Fácil"),

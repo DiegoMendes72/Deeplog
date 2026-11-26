@@ -1,7 +1,11 @@
 package br.com.deeplog.requisitos;
 import br.com.deeplog.model.*;
 import java.util.*;
+/**
+ * Compara os requisitos do perfil com o mergulhador.
+ */
 public class AvaliadorCompatibilidade {
+    /** Verifica todos os requisitos do perfil. */
     public ResultadoCompatibilidade avaliar(Mergulhador usuario, PerfilMergulho perfil) {
         Objects.requireNonNull(perfil);
         List<Verificacao> verificacoes = new ArrayList<>();

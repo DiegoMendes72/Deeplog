@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Cadastro, login e logout dos mergulhadores.
+ */
 public class ServicoAutenticacao {
     private final Map<String, Mergulhador> usuarios = new HashMap<>();
     private final Map<String, Sessao> sessoes = new HashMap<>();
@@ -23,6 +26,7 @@ public class ServicoAutenticacao {
         this.duracaoSessao = duracaoSessao;
     }
 
+    /** Cadastra um novo mergulhador. */
     public synchronized Mergulhador cadastrar(String nome, String email, String senha) {
         String chave = normalizarEmail(email);
         if (usuarios.containsKey(chave)) throw new ValidacaoException("E-mail já cadastrado.");
@@ -31,10 +35,12 @@ public class ServicoAutenticacao {
         return usuario;
     }
 
+    /** Faz login e devolve o código da sessão. */
     public synchronized String login(String email, String senha) {
         return entrar(email, senha).getId().toString();
     }
 
+    /** Faz login e devolve a sessão. */
     public synchronized Sessao entrar(String email, String senha) {
         Mergulhador usuario;
         try {
@@ -50,6 +56,7 @@ public class ServicoAutenticacao {
         return sessao;
     }
 
+    /** Devolve o usuário de uma sessão ativa. */
     public synchronized Mergulhador usuarioDaSessao(String sessao) {
         Sessao atual = sessoes.get(sessao);
         if (atual == null || !atual.ativa(relogio.instant())) {
@@ -59,14 +66,17 @@ public class ServicoAutenticacao {
         return atual.getUsuario();
     }
 
+    /** Encerra a sessão. */
     public synchronized void logout(String token) {
         if (token != null) {
             sessoes.remove(token);
         }
     }
 
+    /** Encerra a sessão informada. */
     public void sair(Sessao sessao) { if (sessao != null) logout(sessao.getId().toString()); }
     
+    /** Atualiza o perfil do usuário logado. */
     public synchronized void atualizarPerfil(String sessao, String nome, Integer experienciaAnterior) {
         usuarioDaSessao(sessao).atualizarPerfil(nome, experienciaAnterior);
     }

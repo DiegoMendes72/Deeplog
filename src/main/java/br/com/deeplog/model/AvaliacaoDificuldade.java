@@ -4,6 +4,9 @@ import br.com.deeplog.enums.NivelDificuldade;
 import java.time.LocalDateTime;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Avaliação de dificuldade de um mergulho.
+ */
 public class AvaliacaoDificuldade {
     private java.util.Set<br.com.deeplog.enums.FatorDificuldade> fatores = java.util.Set.of();
     private NivelDificuldade nivel;
@@ -22,6 +25,7 @@ public class AvaliacaoDificuldade {
     public NivelDificuldade getNivel() {
         return nivel;
     }
+    /** Atualiza a avaliação. */
     public void atualizar(NivelDificuldade nivel, java.util.Set<br.com.deeplog.enums.FatorDificuldade> fatores, String comentario) {
         if (nivel == null || fatores == null) throw new ValidacaoException("Nível e fatores obrigatórios.");
         java.util.Set<br.com.deeplog.enums.FatorDificuldade> copia = java.util.Set.copyOf(fatores);

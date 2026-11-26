@@ -1,6 +1,9 @@
 package br.com.deeplog.model;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Certificação de mergulho oferecida por uma certificadora.
+ */
 public class Certificacao {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private br.com.deeplog.enums.TipoCertificacao tipo = br.com.deeplog.enums.TipoCertificacao.CERTIFICACAO;

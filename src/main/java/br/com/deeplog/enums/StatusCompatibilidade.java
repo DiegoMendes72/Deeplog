@@ -1,5 +1,8 @@
 package br.com.deeplog.enums;
 
+/**
+ * Status de compatibilidade.
+ */
 public enum StatusCompatibilidade {
     COMPATIVEL("Compatível - Atende a todos os requisitos"),
     PARCIAL("Parcialmente Compatível - Requer atenção em alguns requisitos"),

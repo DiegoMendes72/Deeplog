@@ -11,7 +11,11 @@ import br.com.deeplog.persistencia.RepositorioArquivo;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * Classe principal que executa o DeepLog pelo terminal.
+ */
 public class Main {
+    /** Inicia o sistema. */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=== DEEPLOG - SISTEMA DE MERGULHO E GAMIFICAÇÃO ===");

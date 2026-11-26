@@ -6,6 +6,9 @@ import java.util.Set;
 import br.com.deeplog.autenticacao.Senhas;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Usuário do sistema que registra mergulhos.
+ */
 public class Mergulhador {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private Integer experienciaAnterior;
@@ -29,6 +32,7 @@ public class Mergulhador {
         this.certificacoes = new HashSet<>();
     }
 
+    /** Adiciona uma certificação ao mergulhador. */
     public void adicionarCertificacao(CertificacaoObtida certificacao) {
         if (certificacao != null) {
             certificacao.vincular(this);
@@ -36,16 +40,19 @@ public class Mergulhador {
         }
     }
 
+    /** Soma um mergulho ao total. */
     public void incrementarMergulhos() {
         this.quantidadeMergulhos++;
     }
 
+    /** Confere se a senha está correta. */
     public boolean verificarSenha(String senha) {
         return Senhas.verificar(senha, senhaHash);
     }
 
     public java.util.UUID getId() { return id; }
     public Integer getExperienciaAnterior() { return experienciaAnterior; }
+    /** Atualiza nome e experiência anterior. */
     public void atualizarPerfil(String nome, Integer experienciaAnterior) {
         if (nome == null || nome.isBlank() || (experienciaAnterior != null && experienciaAnterior < 0)) {
             throw new ValidacaoException("Nome e experiência inválidos.");
@@ -53,6 +60,7 @@ public class Mergulhador {
         this.nome = nome.trim();
         this.experienciaAnterior = experienciaAnterior;
     }
+    /** Tira um mergulho do total. */
     public void decrementarMergulhos() {
         if (quantidadeMergulhos > 0) quantidadeMergulhos--;
     }

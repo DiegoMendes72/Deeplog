@@ -3,6 +3,9 @@ package br.com.deeplog.model;
 import java.time.LocalDateTime;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Fotografia ligada a um registro de mergulho.
+ */
 public class Fotografia {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private RegistroMergulho registro;

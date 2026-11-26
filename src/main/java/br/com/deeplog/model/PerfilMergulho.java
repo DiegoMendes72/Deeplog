@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Perfil de mergulho de um ponto, com seus requisitos.
+ */
 public class PerfilMergulho {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private br.com.deeplog.enums.FormaEntrada formaEntrada = br.com.deeplog.enums.FormaEntrada.OUTRA;
@@ -27,6 +30,7 @@ public class PerfilMergulho {
         this.requisitos = new ArrayList<>();
     }
 
+    /** Adiciona um requisito ao perfil. */
     public void adicionarRequisito(Requisito requisito) {
         if (requisito != null) {
             this.requisitos.add(requisito);

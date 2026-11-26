@@ -3,6 +3,9 @@ package br.com.deeplog.gamificacao;
 import java.time.LocalDate;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Desafio com período e pontos de recompensa.
+ */
 public class Desafio {
     private String titulo;
     private String descricao;
@@ -27,6 +30,7 @@ public class Desafio {
         this.pontosRecompensa = pontosRecompensa;
     }
 
+    /** Diz se o desafio está ativo hoje. */
     public boolean estaAtivo() {
         LocalDate hoje = LocalDate.now();
         if (dataFim == null) {

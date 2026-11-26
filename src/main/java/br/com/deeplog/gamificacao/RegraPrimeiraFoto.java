@@ -4,9 +4,17 @@ import br.com.deeplog.model.Mergulhador;
 import br.com.deeplog.model.RegistroMergulho;
 import java.util.List;
 
+/**
+ * Regra atendida quando o mergulhador tem um registro com fotografia.
+ */
 public class RegraPrimeiraFoto implements RegraConquista {
     private List<RegistroMergulho> registros;
 
+    /**
+     * Cria a regra.
+     *
+     * @param registros registros de mergulho do sistema
+     */
     public RegraPrimeiraFoto(List<RegistroMergulho> registros) {
         this.registros = registros;
     }

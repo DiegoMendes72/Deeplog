@@ -3,6 +3,9 @@ package br.com.deeplog.model;
 import java.time.LocalDate;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Certificação concluída pelo mergulhador.
+ */
 public class CertificacaoObtida {
     private final java.util.UUID id = java.util.UUID.randomUUID();
     private Mergulhador titular;
@@ -26,6 +29,7 @@ public class CertificacaoObtida {
         if (this.titular != null && this.titular != titular) throw new ValidacaoException("Certificação de outro usuário.");
         this.titular = titular;
     }
+    /** Atualiza a data e o número de registro. */
     public void atualizar(java.time.LocalDate dataConclusao, String numeroRegistro) {
         this.dataConclusao = java.util.Objects.requireNonNull(dataConclusao);
         this.numeroRegistro = numeroRegistro;

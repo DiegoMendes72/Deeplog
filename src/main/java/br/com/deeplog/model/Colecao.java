@@ -2,6 +2,9 @@ package br.com.deeplog.model;
 import java.util.*;
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Coleção de registros de mergulho de um mergulhador.
+ */
 public class Colecao {
     private final UUID id = UUID.randomUUID();
     private final Mergulhador proprietario;
@@ -11,10 +14,12 @@ public class Colecao {
         this.proprietario = Objects.requireNonNull(proprietario);
         setTitulo(titulo);
     }
+    /** Adiciona um registro à coleção. */
     public void adicionar(RegistroMergulho registro) {
         if (registro == null || registro.getAutor() != proprietario) throw new ValidacaoException("Registro de outro usuário.");
         registros.add(registro);
     }
+    /** Remove um registro da coleção. */
     public void remover(RegistroMergulho registro) { registros.remove(registro); }
     public UUID getId() { return id; }
     public Mergulhador getProprietario() { return proprietario; }

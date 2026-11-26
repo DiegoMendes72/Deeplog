@@ -8,6 +8,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Salva e lê os registros de mergulho em arquivo.
+ */
 public class RepositorioArquivo {
     private final Path caminhoArquivo;
 
@@ -16,6 +19,7 @@ public class RepositorioArquivo {
     }
 
     // Salva os registros em um arquivo de texto (CSV simples)
+    /** Salva os registros no arquivo. */
     public void salvarRegistros(List<RegistroMergulho> registros) {
         List<String> linhas = new ArrayList<>();
         linhas.add("ID;Autor;Ponto;DataHora;DuracaoMin;ProfundidadeMaxima");
@@ -41,6 +45,7 @@ public class RepositorioArquivo {
     }
 
     // Lê as linhas do arquivo
+    /** Lê as linhas do arquivo. */
     public List<String> lerLinhas() {
         try {
             if (!Files.exists(caminhoArquivo)) {

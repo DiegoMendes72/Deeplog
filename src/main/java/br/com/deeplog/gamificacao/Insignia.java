@@ -2,6 +2,9 @@ package br.com.deeplog.gamificacao;
 
 import br.com.deeplog.excecoes.ValidacaoException;
 
+/**
+ * Insígnia que o mergulhador pode receber.
+ */
 public class Insignia {
     private String nome;
     private String iconeUrl;
