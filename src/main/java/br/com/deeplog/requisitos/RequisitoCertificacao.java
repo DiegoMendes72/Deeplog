@@ -20,8 +20,8 @@ public class RequisitoCertificacao extends Requisito {
     }
 
     @Override
-    public Verificacao verificar(Mergulhador mergulhador) {
-        if (mergulhador == null || mergulhador.getCertificacoes() == null) {
+    protected Verificacao executarVerificacaoEspecifica(Mergulhador mergulhador) {
+        if (mergulhador.getCertificacoes() == null) {
             return new Verificacao(EstadoVerificacao.INDETERMINADO, "Mergulhador não informado.");
         }
 
