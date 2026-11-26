@@ -24,6 +24,16 @@ Evolução da aplicação incorporando robustez, tratamento de falhas e automaç
 - **Testes Unitários:** Validação automatizada utilizando **JUnit 5** (`AutenticacaoTest` e `ModelagemTest`).
 - **Código Limpo:** Estrutura organizada por domínio e livre de duplicações.
 
+## etapa 5 — padrões de projeto (GoF), javadoc e refatoração
+
+Evolução arquitetural com a aplicação de padrões de projeto para maior flexibilidade e organização:
+
+- **Strategy (Comportamental):** Aplicado no pacote `gamificacao` para definir de forma desacoplada as diferentes regras de liberação de conquistas e carimbos dos mergulhadores.
+- **Template Method (Comportamental):** Aplicado no pacote `requisitos` através da classe abstrata `ValidadorRequisitoTemplate`, padronizando o esqueleto do algoritmo de validação de compatibilidade (pré-validação, execução de critérios específicos e pós-processamento).
+- **Javadoc:** Documentação formal adicionada em todas as classes e métodos públicos do sistema (`/** ... */`).
+
+## organização
+
 ## organização
 
 - `model`: classes do domínio;
