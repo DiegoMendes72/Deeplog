@@ -1,34 +1,34 @@
 package br.com.deeplog.requisitos;
 
 import br.com.deeplog.model.Mergulhador;
-import java.time.LocalDate;
-import br.com.deeplog.excecoes.ValidacaoException;
 
 public abstract class Requisito {
-    private String descricao;
-    private String fonte;
-    private LocalDate revisadoEm;
+    private final String descricao;
+    private final String fonte;
 
     public Requisito(String descricao, String fonte) {
-        if (descricao == null || descricao.trim().isEmpty()) {
-            throw new ValidacaoException("A descrição do requisito é obrigatória.");
-        }
         this.descricao = descricao;
-        this.fonte = (fonte != null) ? fonte : "Manual Padrão";
-        this.revisadoEm = LocalDate.now();
+        this.fonte = fonte;
     }
 
-    public abstract Verificacao verificar(Mergulhador mergulhador);
+    public final Verificacao verificar(Mergulhador mergulhador) {
+        if (!dadosBasicosValidos(mergulhador)) {
+            return new Verificacao(EstadoVerificacao.INDETERMINADO, "Mergulhador não informado.");
+        }
+        return executarVerificacaoEspecifica(mergulhador);
+    }
+    
+    protected boolean dadosBasicosValidos(Mergulhador mergulhador) {
+        return mergulhador != null;
+    }
+    
+    protected abstract Verificacao executarVerificacaoEspecifica(Mergulhador mergulhador);
 
     public String getDescricao() {
         return descricao;
     }
-
+    
     public String getFonte() {
         return fonte;
-    }
-
-    public LocalDate getRevisadoEm() {
-        return revisadoEm;
     }
 }
