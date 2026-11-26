@@ -110,6 +110,9 @@ public class Main {
         
         System.out.println("Carimbos: " + gamificacao.getCarimbos(mergulhador).size());
         System.out.println("Conquistas por regras: " + gamificacao.getConquistas(mergulhador).size());
+        for (ConquistaObtida c : gamificacao.getConquistas(mergulhador)) {
+            System.out.println("- " + c.conquista().getNome());
+        }
         
         br.com.deeplog.servicos.RelatorioEstatistico estatisticas =
                 new br.com.deeplog.servicos.ServicoEstatisticas(historico).calcular(mergulhador, null, null);

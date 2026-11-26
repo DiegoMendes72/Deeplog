@@ -12,12 +12,13 @@ public class ServicoGamificacao {
 
     public ServicoGamificacao(List<RegistroMergulho> registros, List<Colecao> colecoes) {
         this.registros = Objects.requireNonNull(registros);
-        List<Colecao> colecoesLocais = Objects.requireNonNull(colecoes);
-        
+        Objects.requireNonNull(colecoes);
+
         conquistas = List.of(
-            new Conquista("Primeiro registro", "Registrou um mergulho", u -> registros.stream().anyMatch(r -> r.getAutor() == u)),
-            new Conquista("Primeira foto", "Registrou uma fotografia", u -> registros.stream().anyMatch(r -> r.getAutor() == u && !r.getFotografias().isEmpty())),
-            new Conquista("Primeira coleção", "Organizou uma coleção", u -> colecoesLocais.stream().anyMatch(c -> c.getProprietario() == u && c.getRegistros().stream().anyMatch(registros::contains)))
+            new Conquista("Primeiro registro", "Registrou um mergulho", new RegraPrimeiroRegistro(registros)),
+            new Conquista("Primeira foto", "Registrou uma fotografia", new RegraPrimeiraFoto(registros)),
+            new Conquista("Primeira coleção", "Organizou uma coleção", new RegraPrimeiraColecao(colecoes)),
+            new Conquista("Mergulho profundo", "Passou dos 20 metros", new RegraMergulhoProfundo(registros, 20))
         );
     }
 
